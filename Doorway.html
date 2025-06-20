@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Entrance Confirmed</title>
+    <style>
+        body {
+            background-color: black;
+            color: #ff5555;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .message {
+            animation: flicker 1.5s infinite alternate;
+            font-size: 1.6rem;
+            text-align: center;
+        }
+        @keyframes flicker {
+            from { opacity: 0.6; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="message">The end is never the end.</div>
+</body>
+</html>
