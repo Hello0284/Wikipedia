@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Labyrinth - Wikipedia</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: white;
+            color: #202122;
+            margin: 0 auto;
+            max-width: 800px;
+            padding: 20px;
+        }
+
+        a {
+            color: #0645ad;
+            text-decoration: none;
+        }
+
+        a#secret-link {
+            font-weight: bold;
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <h1>Labyrinth</h1>
+        <p><b>Labyrinth</b> refers to a complex and confusing series of pathways or passages, often used synonymously with a <i>maze</i>. Historically, the labyrinth is symbolic of a journey or pilgrimage, leading to personal transformation.</p>
+        <p>The most well-known labyrinth is the mythological structure designed by Daedalus in Crete to contain the Minotaur. Over time, labyrinths have appeared in numerous cultures and media, often representing a puzzle, challenge, or spiritual journey.</p>
+        <p>Unlike mazes, traditional labyrinths typically have only one path leading to the <a href="doorway.html" id="secret-link">entrance</a> and then to the center, without branches or dead ends. Mazes, on the other hand, include multiple paths, choices, and often misleading passages.</p>
+        <h2>Modern Usage</h2>
+        <p>Labyrinths are still constructed today for therapeutic, recreational, or ceremonial purposes. In literature and games, the labyrinth is frequently a symbol of entrapment or introspection.</p>
+    </div>
+</body>
+</html>
