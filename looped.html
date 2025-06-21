@@ -8,18 +8,18 @@
       margin: 0;
       padding: 0;
       background: black;
-      color: white;
-      font-family: monospace;
+      overflow: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      flex-direction: column;
-      overflow: hidden;
+      font-family: 'Courier New', Courier, monospace;
+      color: white;
     }h1 {
-  font-size: 3rem;
+  font-size: 3em;
+  text-align: center;
   opacity: 0;
-  animation: fadeIn 3s ease forwards;
+  animation: fadeIn 3s forwards;
 }
 
 @keyframes fadeIn {
@@ -53,7 +53,9 @@
 
   </style>
 </head>
-<body>  <h1>You did it.</h1>  <!-- Red Confetti Link -->  <div class="red-piece" onclick="location.href='justkidding.html'"></div>  <script>
+<body>
+  <h1>You did it.</h1>
+  <div class="red-piece" onclick="location.href='justkidding.html'"></div>  <script>
     function getRandomColor() {
       const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet', 'cyan', 'magenta', 'lime'];
       return colors[Math.floor(Math.random() * colors.length)];
