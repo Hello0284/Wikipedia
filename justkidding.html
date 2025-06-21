@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Just Kidding</title>
+  <style>
+    body {
+      background: black;
+      color: white;
+      font-family: monospace;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      position: relative;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3rem;
+    }
+
+    .glow-k {
+      color: white;
+      text-shadow: 0 0 5px white, 0 0 15px white;
+      cursor: pointer;
+    }
+
+    .trap {
+      color: white;
+      font-size: 1.2rem;
+      margin-top: 2rem;
+    }
+
+    .hidden-message {
+      color: rgba(255, 255, 255, 0.05);
+      position: absolute;
+      bottom: 20px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: color 0.5s ease;
+    }
+
+    .hidden-message:hover {
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <h1>Just <span class="glow-k" onclick="location.href='oops.html'">k</span>idding.</h1>
+  <div class="trap">The end is never the end.</div>
+  <div class="hidden-message" onclick="location.href='deeper.html'">You're not done yet.</div>
+</body>
+</html>
