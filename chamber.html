@@ -1,0 +1,86 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Chamber</title>
+  <style>
+    body {
+      background: #111 url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+      color: #ccc;
+      font-family: 'Georgia', serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }h1 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.chamber {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  max-width: 900px;
+  width: 90%;
+  padding: 1rem;
+}
+
+.plaque {
+  background: #222;
+  border: 2px solid #444;
+  padding: 2rem;
+  position: relative;
+  cursor: default;
+  text-align: center;
+  box-shadow: 0 0 10px #000;
+}
+
+.hidden-message {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+  color: #fff;
+  text-shadow: 0 0 8px white;
+  font-style: italic;
+}
+
+.plaque.revealer:hover .hidden-message {
+  opacity: 1;
+}
+
+.plaque:hover {
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+.fake-text {
+  font-family: 'Courier New', Courier, monospace;
+  color: #555;
+  font-size: 1.2rem;
+  user-select: none;
+}
+
+  </style>
+</head>
+<body>
+  <h1>The Chamber</h1>
+  <div class="chamber">
+    <div class="plaque"><div class="fake-text">⟟⟟⟊⋏⋏⧫⚍⚍⌰</div></div>
+    <div class="plaque"><div class="fake-text">ᒷᒷᔑ⋮𝙭𝙭||⋮</div></div>
+    <div class="plaque revealer">
+      <div class="fake-text">𐑒𐑦𐐼𐐲𐐼𐑑𐐼</div>
+      <div class="hidden-message" onclick="window.location.href='further.html'">
+        You’ve come far, but there’s always farther.
+      </div>
+    </div>
+    <div class="plaque"><div class="fake-text">⧫⚍⟟⌇⨅𝕩𓂀</div></div>
+    <div class="plaque"><div class="fake-text">⟒⏃⊑⧫⋮⍜⍀⧫</div></div>
+  </div>
+</body>
+</html>
