@@ -9,13 +9,12 @@
       margin: 0;
       background: black;
       color: white;
-      overflow: hidden;
       font-family: 'Courier New', monospace;
+      overflow: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      position: relative;
     }
 
     .background {
@@ -23,28 +22,33 @@
       top: 0; left: 0;
       width: 100%;
       height: 100%;
-      z-index: 0;
       background: url('https://media.tenor.com/0cWQ1zMEkO4AAAAC/the-stanley-parable-game.gif') center center / cover no-repeat;
       opacity: 0.2;
-      filter: brightness(0.5) contrast(1.2);
+      z-index: 0;
     }
 
-    .phrase {
-      position: relative;
+    .container {
       z-index: 1;
-      font-size: 2rem;
-      white-space: nowrap;
-      animation: loopText 12s linear infinite;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
-    @keyframes loopText {
+    .line {
+      white-space: nowrap;
+      font-size: 1.8rem;
+      animation: scrollText 10s linear infinite;
+    }
+
+    @keyframes scrollText {
       0% { transform: translateX(0); }
       100% { transform: translateX(-50%); }
     }
 
     .glow {
-      color: #ff4444;
-      text-shadow: 0 0 6px red;
+      color: white;
+      text-shadow: 0 0 4px white;
+      font-weight: bold;
       animation: subtlePulse 2s infinite;
     }
 
@@ -56,14 +60,21 @@
     .glow a {
       color: inherit;
       text-decoration: none;
-      cursor: pointer;
     }
   </style>
 </head>
 <body>
   <div class="background"></div>
-  <div class="phrase">
-    the end is never the end is never the <span class="glow"><a href="looped.html">end</a></span> is never the end is never the end...
+  <div class="container">
+    <div class="line">
+      the end is never the end is never the <span class="glow"><a href="looped.html">end</a></span> is never the end is never the end...
+    </div>
+    <div class="line">
+      the end is never the end is never the end is never the end is never the end...
+    </div>
+    <div class="line">
+      the end is never the end is never the end is never the end is never the end...
+    </div>
   </div>
 </body>
 </html>
