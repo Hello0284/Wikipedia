@@ -25,40 +25,39 @@
     .confetti {
       width: 10px;
       height: 10px;
-      background: red;
       position: absolute;
-      top: 0;
+      background: red;
+      top: -20px; /* Start above screen */
       animation: fall 5s linear infinite;
       opacity: 0.9;
       border-radius: 2px;
     }
 
     @keyframes fall {
-      0% { transform: translateY(-10px); }
-      100% { transform: translateY(100vh); }
+      0% { transform: translateY(0); }
+      100% { transform: translateY(120vh); }
     }
 
     #frozen {
-      top: 30vh;
-      left: 50vw;
       background: red;
       z-index: 10;
-      animation: none;
       transition: box-shadow 0.5s ease;
     }
 
     #frozen.glow {
       box-shadow: 0 0 10px red;
       cursor: pointer;
+      animation: none !important; /* freeze in place */
     }
   </style>
 </head>
 <body>
   <h1>Congratulations, you’ve reached the end.</h1>
 
-  <!-- Confetti generator -->
   <script>
     const colors = ['#e74c3c', '#f1c40f', '#9b59b6', '#1abc9c', '#3498db'];
+
+    // Generate 100 falling confetti
     for (let i = 0; i < 100; i++) {
       const confetti = document.createElement('div');
       confetti.className = 'confetti';
@@ -68,22 +67,26 @@
       document.body.appendChild(confetti);
     }
 
-    // Add the frozen one
+    // Add a red confetti that starts like others, then freezes and glows
     const frozen = document.createElement('div');
     frozen.className = 'confetti';
     frozen.id = 'frozen';
+    frozen.style.left = '50vw';
+    frozen.style.animationDuration = '4s';
     document.body.appendChild(frozen);
 
-    // After a delay, make it glow and clickable
+    // After a delay, freeze it in place and activate glow/click
     setTimeout(() => {
       frozen.classList.add('glow');
+      frozen.style.top = frozen.getBoundingClientRect().top + 'px'; // Lock position
+      frozen.style.animation = 'none'; // Stop falling
       frozen.onclick = () => {
-        window.location.href = "passage.html"; // Change this to the next site
+        window.location.href = "passage.html"; // Next page
       };
-    }, 5000); // Start glowing after 5 seconds
+    }, 4000); // Freezes after 4 seconds
   </script>
 
-  <!-- Sound effect -->
+  <!-- Fanfare sound -->
   <audio autoplay>
     <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_f7cfa1d15c.mp3" type="audio/mp3">
   </audio>
