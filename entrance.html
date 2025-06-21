@@ -20,14 +20,17 @@
   padding: 2rem;
   border: 2px solid #555;
   border-radius: 10px;
-  max-width: 600px;
+  max-width: 700px;
   box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
-  text-align: justify;
 }
 
 .line {
-  display: block;
   margin-bottom: 1rem;
+}
+
+.clue-letter {
+  color: #666;
+  font-style: italic;
 }
 
 input[type="text"] {
@@ -61,13 +64,13 @@ button {
 </head>
 <body>
   <div class="tablet">
-    <span class="line">Carved in shadows and hidden in stone.c</span>
-    <span class="line">Hope clings to the lost who wander alone.h</span>
-    <span class="line">A silence falls where light once burned.a</span>
-    <span class="line">Many have sought, but none have returned.m</span>
-    <span class="line">Beware the echoes, they lie and mislead.b</span>
-    <span class="line">Endings are not always what they seem to be.e</span>
-    <span class="line">Rest, if you must — then follow the unseen.r</span><form id="puzzleForm">
+    <div class="line">Carved in shadows and hidden in ston<span class="clue-letter">e</span></div>
+    <div class="line">Hope clings to the lost who wander alon<span class="clue-letter">e</span></div>
+    <div class="line">A silence falls where light once burn<span class="clue-letter">e</span></div>
+    <div class="line">Many have sought, but none have returne<span class="clue-letter">d</span></div>
+    <div class="line">Beware the echoes, they lie and mislea<span class="clue-letter">d</span></div>
+    <div class="line">Endings are not always what they seem t<span class="clue-letter">o</span></div>
+    <div class="line">Rest, if you must — then follow the unsee<span class="clue-letter">n</span></div><form id="puzzleForm">
   <input type="text" id="answer" placeholder="Heed the final whispers...">
   <button type="submit">Submit</button>
 </form>
