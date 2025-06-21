@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Congratulations</title>
+  <style>
+    body {
+      margin: 0;
+      background: white;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+      height: 100vh;
+      position: relative;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-top: 20vh;
+      color: #222;
+      z-index: 1;
+    }
+
+    .confetti {
+      width: 10px;
+      height: 10px;
+      background: red;
+      position: absolute;
+      top: 0;
+      animation: fall 5s linear infinite;
+      opacity: 0.9;
+      border-radius: 2px;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-10px); }
+      100% { transform: translateY(100vh); }
+    }
+
+    #frozen {
+      top: 30vh;
+      left: 50vw;
+      background: red;
+      z-index: 10;
+      animation: none;
+      transition: box-shadow 0.5s ease;
+    }
+
+    #frozen.glow {
+      box-shadow: 0 0 10px red;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Congratulations, you’ve reached the end.</h1>
+
+  <!-- Confetti generator -->
+  <script>
+    const colors = ['#e74c3c', '#f1c40f', '#9b59b6', '#1abc9c', '#3498db'];
+    for (let i = 0; i < 100; i++) {
+      const confetti = document.createElement('div');
+      confetti.className = 'confetti';
+      confetti.style.left = Math.random() * 100 + 'vw';
+      confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+      confetti.style.animationDuration = (3 + Math.random() * 3) + 's';
+      document.body.appendChild(confetti);
+    }
+
+    // Add the frozen one
+    const frozen = document.createElement('div');
+    frozen.className = 'confetti';
+    frozen.id = 'frozen';
+    document.body.appendChild(frozen);
+
+    // After a delay, make it glow and clickable
+    setTimeout(() => {
+      frozen.classList.add('glow');
+      frozen.onclick = () => {
+        window.location.href = "passage.html"; // Change this to the next site
+      };
+    }, 5000); // Start glowing after 5 seconds
+  </script>
+
+  <!-- Sound effect -->
+  <audio autoplay>
+    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_f7cfa1d15c.mp3" type="audio/mp3">
+  </audio>
+</body>
+</html>
