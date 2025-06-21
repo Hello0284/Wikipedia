@@ -1,31 +1,87 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Entrance Confirmed</title>
-    <style>
-        body {
-            background-color: black;
-            color: #ff5555;
-            font-family: 'Courier New', Courier, monospace;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .message {
-            animation: flicker 1.5s infinite alternate;
-            font-size: 1.6rem;
-            text-align: center;
-        }
-        @keyframes flicker {
-            from { opacity: 0.6; }
-            to { opacity: 1; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stone Inscription</title>
+  <style>
+    body {
+      background: url('https://www.transparenttextures.com/patterns/black-felt.png');
+      color: #ccc;
+      font-family: 'Georgia', serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      padding: 2rem;
+    }.tablet {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 2rem;
+  border: 2px solid #555;
+  border-radius: 10px;
+  max-width: 600px;
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
+  text-align: justify;
+}
+
+.line {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+input[type="text"] {
+  margin-top: 1.5rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+}
+
+button {
+  margin-left: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  background: crimson;
+  color: white;
+  cursor: pointer;
+}
+
+.hint {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  font-style: italic;
+  color: #888;
+}
+
+  </style>
 </head>
 <body>
-    <div class="message">The end is never the end.</div>
-</body>
+  <div class="tablet">
+    <span class="line">Carved in shadows and hidden in stone.c</span>
+    <span class="line">Hope clings to the lost who wander alone.h</span>
+    <span class="line">A silence falls where light once burned.a</span>
+    <span class="line">Many have sought, but none have returned.m</span>
+    <span class="line">Beware the echoes, they lie and mislead.b</span>
+    <span class="line">Endings are not always what they seem to be.e</span>
+    <span class="line">Rest, if you must — then follow the unseen.r</span><form id="puzzleForm">
+  <input type="text" id="answer" placeholder="Heed the final whispers...">
+  <button type="submit">Submit</button>
+</form>
+<div class="hint">Only the wise will read what isn't said aloud.</div>
+
+  </div>  <script>
+    document.getElementById("puzzleForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const input = document.getElementById("answer").value.trim().toLowerCase();
+      if (input === "chamber") {
+        window.location.href = "chamber.html";
+      } else {
+        alert("The stone remains silent.");
+      }
+    });
+  </script></body>
 </html>
