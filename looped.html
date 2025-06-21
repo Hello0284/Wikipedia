@@ -2,38 +2,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>looped</title>
+  <title>You Did It</title>
   <style>
     body {
       margin: 0;
       padding: 0;
       background: black;
-      overflow: hidden;
-      font-family: monospace;
       color: white;
-    }.end {
-  position: absolute;
-  white-space: nowrap;
-  font-size: 2rem;
-  animation: scroll 12s linear infinite;
-  top: 50%;
+      font-family: monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      overflow: hidden;
+    }h1 {
+  font-size: 3rem;
+  opacity: 0;
+  animation: fadeIn 3s ease forwards;
 }
 
-@keyframes scroll {
-  0% { transform: translateX(100vw); }
-  100% { transform: translateX(-100%); }
-}
-
-.glow {
-  color: white;
-  text-shadow: 0 0 5px #fff, 0 0 15px #fff;
+@keyframes fadeIn {
+  to { opacity: 1; }
 }
 
 .confetti {
   position: absolute;
   width: 10px;
   height: 10px;
-  background-color: white;
   animation: fall 5s linear forwards;
 }
 
@@ -42,9 +38,9 @@
   100% { top: 100vh; opacity: 0; }
 }
 
-.frozen {
+.red-piece {
   position: absolute;
-  top: 75%;
+  top: 80%;
   left: 50%;
   width: 10px;
   height: 10px;
@@ -52,17 +48,24 @@
   box-shadow: 0 0 10px red;
   transform: translate(-50%, -50%);
   cursor: pointer;
+  z-index: 10;
 }
 
   </style>
 </head>
-<body>  <div class="end">the end is never the end is never the end is never the end is never the end is never the end is never the end is never</div>  <!-- Frozen Confetti Link -->  <div class="frozen" onclick="location.href='justkidding.html'"></div>  <script>
+<body>  <h1>You did it.</h1>  <!-- Red Confetti Link -->  <div class="red-piece" onclick="location.href='justkidding.html'"></div>  <script>
+    function getRandomColor() {
+      const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet', 'cyan', 'magenta', 'lime'];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+
     function spawnConfetti() {
-      for (let i = 0; i < 100; i++) {
+      for (let i = 0; i < 150; i++) {
         const confetti = document.createElement('div');
         confetti.className = 'confetti';
         confetti.style.left = Math.random() * 100 + 'vw';
         confetti.style.animationDelay = Math.random() * 5 + 's';
+        confetti.style.backgroundColor = getRandomColor();
         document.body.appendChild(confetti);
       }
     }
