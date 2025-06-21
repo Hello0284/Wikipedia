@@ -1,0 +1,34 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The End</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      flex-direction: column;
+      text-align: center;
+    }.loop-text {
+  font-size: 2rem;
+  animation: flicker 3s infinite;
+}
+
+@keyframes flicker {
+  0% { opacity: 1; }
+  50% { opacity: 0.3; }
+  100% { opacity: 1; }
+}
+
+  </style>
+</head>
+<body>
+  <div class="loop-text">The end is never the end.<br>The end is never the end.<br>The end is never the end.</div>
+</body>
+</html>
