@@ -5,62 +5,51 @@
   <title>Echo</title>
   <style>
     body {
-      background-color: #0a0a0a;
-      color: #00ffcc;
-      font-family: 'Courier New', Courier, monospace;
       margin: 0;
-      padding: 0;
+      background: black;
+      color: white;
+      font-family: 'Courier New', monospace;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
+      text-align: center;
       overflow: hidden;
-    }.echo-container {
-  text-align: center;
-  width: 80%;
-}
-
-.echo-text {
-  font-size: 1.5rem;
-  line-height: 2.2rem;
-  opacity: 0;
-  animation: echoFade 10s linear infinite;
-  white-space: pre-wrap;
-}
-
-@keyframes echoFade {
-  0% { opacity: 0; }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
-  100% { opacity: 0; }
-}
-
-.hidden-link {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  color: #0a0a0a;
-  font-size: 0.75rem;
-  text-decoration: none;
-}
-
-.hidden-link:hover {
-  color: #00ffcc;
-}
-
+    }
+    .pulse {
+      width: 15px;
+      height: 15px;
+      background: white;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+      margin: auto;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.5); opacity: 0.3; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .glow {
+      color: cyan;
+      text-shadow: 0 0 10px cyan;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
-  <div class="echo-container">
-    <div class="echo-text">
-      You said something...
-      And it answered back.
-      Again.
-      And again.
-      But something changed...
-      It’s not your voice anymore.
-    </div>
-  </div><a class="hidden-link" href="shift.html">echo →</a>
+  <div id="content"></div>  <script>
+    const visit = localStorage.getItem("echoVisit") || 0;
+    const content = document.getElementById("content");
 
-</body>
+    if (visit == 0) {
+      content.innerHTML = '<div class="pulse"></div>';
+      localStorage.setItem("echoVisit", 1);
+    } else if (visit == 1) {
+      content.innerHTML = '<p>It heard you last time.</p>';
+      localStorage.setItem("echoVisit", 2);
+    } else {
+      content.innerHTML = '<p>The echo is louder now.</p><p class="glow" onclick="location.href=\'resonance.html\'">Proceed</p>';
+      localStorage.setItem("echoVisit", 3);
+    }
+  </script></body>
 </html>
