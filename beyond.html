@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Access Terminal</title>
+  <style>
+    body {
+      background-color: black;
+      color: #00ff00;
+      font-family: 'Courier New', monospace;
+      padding: 2rem;
+      margin: 0;
+      font-size: 1.1rem;
+      overflow: hidden;
+    }
+
+    .console {
+      max-width: 1000px;
+      margin: auto;
+      white-space: pre-wrap;
+      line-height: 1.5;
+    }
+
+    .blink {
+      display: inline-block;
+      width: 10px;
+      height: 1em;
+      background: #00ff00;
+      margin-left: 4px;
+      animation: blink 1s steps(2, start) infinite;
+      vertical-align: bottom;
+    }
+
+    @keyframes blink {
+      to {
+        visibility: hidden;
+      }
+    }
+
+    a {
+      color: #00ff00;
+      text-decoration: underline;
+    }
+
+    a:hover {
+      color: #0f0;
+    }
+  </style>
+</head>
+<body>
+  <div class="console" id="console">
+    <div>> initializing protocol...</div>
+  </div>
+
+  <script>
+    const lines = [
+      "> establishing secure connection...",
+      "> bypassing encryption...",
+      "> access level overridden",
+      "> decoding path...",
+      "> system breach successful.",
+      "",
+      "> access granted. <a href='glitched.html'>[continue]</a>"
+    ];
+
+    const consoleDiv = document.getElementById("console");
+
+    let i = 0;
+    function typeLine() {
+      if (i < lines.length) {
+        const line = document.createElement("div");
+        line.innerHTML = lines[i++];
+        consoleDiv.appendChild(line);
+        setTimeout(typeLine, 1000);
+      } else {
+        const cursor = document.createElement("span");
+        cursor.classList.add("blink");
+        consoleDiv.appendChild(cursor);
+      }
+    }
+
+    setTimeout(typeLine, 1000);
+  </script>
+</body>
+</html>
