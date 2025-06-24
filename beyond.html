@@ -32,12 +32,6 @@
       vertical-align: bottom;
     }
 
-    @keyframes blink {
-      to {
-        visibility: hidden;
-      }
-    }
-
     a {
       color: #00ff00;
       text-decoration: underline;
@@ -61,26 +55,42 @@
       "> decoding path...",
       "> system breach successful.",
       "",
-      "> access granted. <a href='glitched.html'>[continue]</a>"
+      "> access granted. <a href='glitched.html'>[continue]</a>",
+      ""
     ];
 
     const consoleDiv = document.getElementById("console");
-
     let i = 0;
+
     function typeLine() {
       if (i < lines.length) {
         const line = document.createElement("div");
         line.innerHTML = lines[i++];
         consoleDiv.appendChild(line);
-        setTimeout(typeLine, 1000);
+        setTimeout(typeLine, 900);
       } else {
         const cursor = document.createElement("span");
         cursor.classList.add("blink");
         consoleDiv.appendChild(cursor);
+        activateSecretListener();
       }
     }
 
     setTimeout(typeLine, 1000);
+
+    function activateSecretListener() {
+      let input = "";
+      const secret = "echo"; // 👈 You can change this
+      document.addEventListener("keydown", e => {
+        if (e.key.length === 1) {
+          input += e.key.toLowerCase();
+          if (input.length > secret.length) input = input.slice(-secret.length);
+          if (input === secret) {
+            window.location.href = "echo.html"; // 👈 Hidden path
+          }
+        }
+      });
+    }
   </script>
 </body>
 </html>
