@@ -30,13 +30,17 @@
       margin-left: 4px;
       animation: blink 1s steps(2, start) infinite;
       vertical-align: bottom;
-      cursor: text;
     }
 
     #hiddenInput {
       opacity: 0;
       position: absolute;
       pointer-events: none;
+    }
+
+    #visibleInput {
+      display: inline;
+      color: #00ff00;
     }
 
     a {
@@ -55,7 +59,7 @@
   </div>
 
   <input type="text" id="hiddenInput" autocomplete="off" />
-
+  
   <script>
     const lines = [
       "> establishing secure connection...",
@@ -70,8 +74,7 @@
 
     const consoleDiv = document.getElementById("console");
     const input = document.getElementById("hiddenInput");
-    const secret = "deeper"; // 👈 your secret phrase
-
+    const secret = "deeper"; // secret word
     let i = 0;
 
     function typeLine() {
@@ -81,23 +84,33 @@
         consoleDiv.appendChild(line);
         setTimeout(typeLine, 900);
       } else {
+        const typeDiv = document.createElement("div");
+        typeDiv.innerHTML = "> ";
+        const visibleInput = document.createElement("span");
+        visibleInput.id = "visibleInput";
         const cursor = document.createElement("span");
         cursor.classList.add("blink");
         cursor.id = "cursor";
-        cursor.onclick = () => input.focus(); // tap to open keyboard
-        consoleDiv.appendChild(cursor);
-        activateSecretListener();
+        
+        typeDiv.appendChild(visibleInput);
+        typeDiv.appendChild(cursor);
+        consoleDiv.appendChild(typeDiv);
+
+        activateInput(visibleInput);
       }
     }
 
-    function activateSecretListener() {
+    function activateInput(visibleInput) {
       input.focus();
       input.addEventListener("input", () => {
-        const typed = input.value.toLowerCase().trim();
-        if (typed === secret) {
+        visibleInput.textContent = input.value;
+        if (input.value.trim().toLowerCase() === secret) {
           window.location.href = "echo.html";
         }
       });
+
+      // Tap anywhere to trigger input focus on mobile
+      document.body.addEventListener("click", () => input.focus());
     }
 
     setTimeout(typeLine, 1000);
