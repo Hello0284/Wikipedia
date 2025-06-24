@@ -1,0 +1,66 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Echo</title>
+  <style>
+    body {
+      background-color: #0a0a0a;
+      color: #00ffcc;
+      font-family: 'Courier New', Courier, monospace;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }.echo-container {
+  text-align: center;
+  width: 80%;
+}
+
+.echo-text {
+  font-size: 1.5rem;
+  line-height: 2.2rem;
+  opacity: 0;
+  animation: echoFade 10s linear infinite;
+  white-space: pre-wrap;
+}
+
+@keyframes echoFade {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.hidden-link {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  color: #0a0a0a;
+  font-size: 0.75rem;
+  text-decoration: none;
+}
+
+.hidden-link:hover {
+  color: #00ffcc;
+}
+
+  </style>
+</head>
+<body>
+  <div class="echo-container">
+    <div class="echo-text">
+      You said something...
+      And it answered back.
+      Again.
+      And again.
+      But something changed...
+      It’s not your voice anymore.
+    </div>
+  </div><a class="hidden-link" href="shift.html">echo →</a>
+
+</body>
+</html>
