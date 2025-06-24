@@ -1,0 +1,127 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Frozen Time</title>
+  <style>
+    body {
+      margin: 0;
+      background: #121212;
+      color: #e0e0e0;
+      font-family: 'Courier New', Courier, monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }#clock {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border: 5px solid #444;
+  border-radius: 50%;
+  background: #1c1c1c;
+  box-shadow: 0 0 20px rgba(255,255,255,0.05);
+}
+
+.hand {
+  position: absolute;
+  background: #e0e0e0;
+  transform-origin: 50% 100%;
+  border-radius: 2px;
+}
+
+#hour {
+  width: 6px;
+  height: 50px;
+  top: 50px;
+  left: 97px;
+  transform: rotate(330deg);
+}
+
+#minute {
+  width: 4px;
+  height: 70px;
+  top: 30px;
+  left: 98px;
+  transform: rotate(66deg);
+}
+
+#tick {
+  position: absolute;
+  top: 90%;
+  color: #888;
+  font-size: 0.8rem;
+  opacity: 0.3;
+}
+
+#message {
+  margin-top: 40px;
+  font-size: 1.2rem;
+  opacity: 0.7;
+  transition: opacity 2s ease;
+}
+
+#proceed {
+  display: none;
+  margin-top: 20px;
+  font-size: 1.1rem;
+  color: #00ffff;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+#countdown {
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  font-size: 0.9rem;
+  color: #2e2e2e;
+  user-select: none;
+}
+
+  </style>
+</head>
+<body>
+  <div id="clock">
+    <div id="hour" class="hand"></div>
+    <div id="minute" class="hand"></div>
+  </div>
+  <div id="message">You arrived too soon.</div>
+  <div id="proceed" onclick="location.href='still.html'">You’ve waited long enough. Proceed.</div>
+  <div id="countdown">60</div>  <script>
+    let timeLeft = 60;
+    const countdown = document.getElementById("countdown");
+    const proceed = document.getElementById("proceed");
+    const message = document.getElementById("message");
+    const hour = document.getElementById("hour");
+    const minute = document.getElementById("minute");
+
+    // Countdown timer
+    const timer = setInterval(() => {
+      timeLeft--;
+      countdown.textContent = timeLeft;
+      if (timeLeft === 0) {
+        clearInterval(timer);
+        proceed.style.display = "block";
+        message.style.opacity = 0;
+        setTimeout(() => {
+          message.textContent = "You’ve waited long enough. Proceed.";
+          message.style.opacity = 1;
+        }, 2000);
+      }
+    }, 1000);
+
+    // Twitching clock hands every 10 seconds
+    setInterval(() => {
+      hour.style.transform = 'rotate(331deg)';
+      minute.style.transform = 'rotate(65deg)';
+      setTimeout(() => {
+        hour.style.transform = 'rotate(330deg)';
+        minute.style.transform = 'rotate(66deg)';
+      }, 300);
+    }, 10000);
+  </script></body>
+</html>
