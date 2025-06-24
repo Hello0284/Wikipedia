@@ -42,15 +42,6 @@
       display: inline;
       color: #00ff00;
     }
-
-    a {
-      color: #00ff00;
-      text-decoration: underline;
-    }
-
-    a:hover {
-      color: #0f0;
-    }
   </style>
 </head>
 <body>
@@ -59,7 +50,12 @@
   </div>
 
   <input type="text" id="hiddenInput" autocomplete="off" />
-  
+
+  <!-- Success Sound -->
+  <audio id="successSound">
+    <source src="https://cdn.pixabay.com/audio/2023/06/28/audio_6d49b5e8f1.mp3" type="audio/mp3">
+  </audio>
+
   <script>
     const lines = [
       "> establishing secure connection...",
@@ -68,13 +64,15 @@
       "> decoding path...",
       "> system breach successful.",
       "",
-      "> access granted. <a href='glitched.html'>[continue]</a>",
+      "> access granted. Enter passcode to continue.",
       ""
     ];
 
     const consoleDiv = document.getElementById("console");
     const input = document.getElementById("hiddenInput");
-    const secret = "deeper"; // secret word
+    const secret = "further"; // updated secret word
+    const audio = document.getElementById("successSound");
+
     let i = 0;
 
     function typeLine() {
@@ -103,13 +101,17 @@
     function activateInput(visibleInput) {
       input.focus();
       input.addEventListener("input", () => {
+        const value = input.value.trim().toLowerCase();
         visibleInput.textContent = input.value;
-        if (input.value.trim().toLowerCase() === secret) {
-          window.location.href = "echo.html";
+        if (value === secret) {
+          audio.play();
+          setTimeout(() => {
+            window.location.href = "echo.html";
+          }, 800); // delay to let the sound play
         }
       });
 
-      // Tap anywhere to trigger input focus on mobile
+      // Focus input on tap (mobile-friendly)
       document.body.addEventListener("click", () => input.focus());
     }
 
