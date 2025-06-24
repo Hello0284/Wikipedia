@@ -42,6 +42,24 @@
       display: inline;
       color: #00ff00;
     }
+
+    #fakeButton {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.5rem 1.2rem;
+      border: 1px solid #00ff00;
+      color: #00ff00;
+      background: transparent;
+      cursor: pointer;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    #fakeButton:hover {
+      background: #00ff00;
+      color: black;
+    }
   </style>
 </head>
 <body>
@@ -64,13 +82,13 @@
       "> decoding path...",
       "> system breach successful.",
       "",
-      "> access granted. Enter passcode to continue.",
+      "> access granted. Enter passcode to continue or tap the button below.",
       ""
     ];
 
     const consoleDiv = document.getElementById("console");
     const input = document.getElementById("hiddenInput");
-    const secret = "further"; // updated secret word
+    const secret = "further";
     const audio = document.getElementById("successSound");
 
     let i = 0;
@@ -94,6 +112,14 @@
         typeDiv.appendChild(cursor);
         consoleDiv.appendChild(typeDiv);
 
+        const button = document.createElement("button");
+        button.id = "fakeButton";
+        button.innerText = "Continue";
+        button.onclick = () => {
+          window.location.href = "mislead.html";
+        };
+        consoleDiv.appendChild(button);
+
         activateInput(visibleInput);
       }
     }
@@ -107,11 +133,11 @@
           audio.play();
           setTimeout(() => {
             window.location.href = "echo.html";
-          }, 800); // delay to let the sound play
+          }, 800);
         }
       });
 
-      // Focus input on tap (mobile-friendly)
+      // For mobile tap-to-type
       document.body.addEventListener("click", () => input.focus());
     }
 
