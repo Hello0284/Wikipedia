@@ -1,1 +1,99 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>echo.html</title>
+  <style>
+    body {
+      background: #000;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+    }h1 {
+  font-size: 2rem;
+  margin: 1rem;
+}
 
+#nextBtn {
+  display: none;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #444;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+#achievement {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background: rgba(30, 30, 30, 0.9);
+  color: #eee;
+  padding: 10px 15px;
+  border-radius: 6px;
+  display: none;
+  font-size: 0.9rem;
+  align-items: center;
+  gap: 10px;
+  z-index: 9999;
+}
+
+#achievement img {
+  width: 24px;
+  height: 24px;
+}
+
+  </style>
+</head>
+<body>
+  <h1 id="line">There's nothing here</h1>
+  <button id="nextBtn" onclick="location.href='signal.html'">Next Site</button>  <div id="achievement">
+    <img src="https://upload.wikimedia.org/wikipedia/en/3/3b/Portal2_you_made_your_point.png" alt="Achievement Icon" />
+    <span>You made your point.</span>
+  </div>  <script>
+    const lines = [
+      "There's nothing here",
+      "Still nothing",
+      "Fine"
+    ];
+    let index = 0;
+    const lineEl = document.getElementById('line');
+    const nextBtn = document.getElementById('nextBtn');
+
+    setInterval(() => {
+      if (index < lines.length) {
+        lineEl.textContent = lines[index];
+        index++;
+        if (index === lines.length) {
+          nextBtn.style.display = 'inline-block';
+        }
+      }
+    }, 2500);
+
+    // Easter Egg tracking
+    let refreshCount = localStorage.getItem('refreshCount') || 0;
+    const today = new Date().toDateString();
+    const storedDate = localStorage.getItem('refreshDate');
+
+    if (storedDate !== today) {
+      localStorage.setItem('refreshDate', today);
+      localStorage.setItem('refreshCount', 1);
+    } else {
+      refreshCount++;
+      localStorage.setItem('refreshCount', refreshCount);
+
+      if (refreshCount >= 20) {
+        document.getElementById('achievement').style.display = 'flex';
+      }
+    }
+  </script></body>
+</html>
