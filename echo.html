@@ -1,106 +1,101 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>echo.html</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Echo</title>
   <style>
     body {
       margin: 0;
-      background: #111;
-      color: #fff;
+      background-color: #111;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
-      font-family: 'Segoe UI', sans-serif;
       overflow: hidden;
-    }h1 {
-  font-size: 2rem;
-  margin: 0.5em;
-}
+    }
 
-button {
-  margin-top: 1em;
-  padding: 0.5em 1em;
-  background: #333;
-  color: #fff;
-  border: 1px solid #555;
-  cursor: pointer;
-}
+    .message {
+      font-size: 1.8rem;
+      margin: 10px;
+    }
 
-#achievement {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  background: #222;
-  border: 1px solid #555;
-  padding: 10px 20px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
-}
+    #nextBtn {
+      display: none;
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      background-color: #333;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
 
-#achievement img {
-  height: 40px;
-  margin-right: 10px;
-}
+    #achievement {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background-color: #222;
+      border-left: 5px solid #00aaff;
+      padding: 10px 15px;
+      color: white;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: fadeIn 1s ease;
+    }
 
-#achievement.show {
-  opacity: 1;
-}
+    #achievement img {
+      width: 40px;
+      height: 40px;
+    }
 
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
-  <h1 id="msg">There's nothing here</h1>
-  <button id="nextBtn" style="display: none;" onclick="window.location.href='echo3.html'">Next Site</button>  <div id="achievement">
-    <img src="https://static.wikia.nocookie.net/half-life/images/1/1c/Portal2_achievements_icon22.png" alt="Achievement Icon">
-    <div>
-      <strong>Achievement Unlocked</strong><br>
-      You Made Your Point
-    </div>
-  </div>  <script>
-    const messages = [
-      "There's nothing here",
-      "Still nothing",
-      "Fine"
-    ];
+  <div class="message">There's nothing here</div>
+  <div class="message">Still nothing</div>
+  <div class="message">Fine</div>
+  <button id="nextBtn" onclick="window.location.href='whatevercomesnext.html'">Next Site</button>
 
-    let step = 0;
-    const msgEl = document.getElementById("msg");
-    const nextBtn = document.getElementById("nextBtn");
+  <div id="achievement">
+    <img src="https://static.wikia.nocookie.net/half-life/images/f/f4/Achievement_you_made_your_point.png" alt="Achievement Icon">
+    <div><strong>Achievement Unlocked</strong><br>You Made Your Point</div>
+  </div>
 
-    document.body.addEventListener("click", () => {
-      if (step < messages.length - 1) {
-        step++;
-        msgEl.textContent = messages[step];
-        if (step === messages.length - 1) {
-          nextBtn.style.display = "inline-block";
-        }
+  <script>
+    // Display button after messages
+    window.onload = () => {
+      setTimeout(() => {
+        document.getElementById("nextBtn").style.display = "block";
+      }, 1500);
+
+      // Track refresh count
+      const key = 'refreshCount';
+      const today = new Date().toDateString();
+
+      let data = JSON.parse(localStorage.getItem(key)) || {};
+      if (data.date !== today) {
+        data = { date: today, count: 0 };
       }
-    });
 
-    // Refresh tracker
-    const refreshKey = 'refreshCount';
-    const refreshDateKey = 'refreshDate';
-    const today = new Date().toDateString();
-    const savedDate = localStorage.getItem(refreshDateKey);
+      data.count++;
+      localStorage.setItem(key, JSON.stringify(data));
 
-    if (savedDate !== today) {
-      localStorage.setItem(refreshDateKey, today);
-      localStorage.setItem(refreshKey, 1);
-    } else {
-      let count = parseInt(localStorage.getItem(refreshKey) || '0');
-      count++;
-      localStorage.setItem(refreshKey, count);
-
-      if (count === 20) {
-        const ach = document.getElementById("achievement");
-        ach.classList.add("show");
+      if (data.count === 20) {
+        document.getElementById('achievement').style.display = 'flex';
       }
-    }
-  </script></body>
+    };
+  </script>
+</body>
 </html>
