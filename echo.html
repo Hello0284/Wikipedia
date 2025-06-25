@@ -21,6 +21,12 @@
     .message {
       font-size: 1.8rem;
       margin: 10px;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    .visible {
+      opacity: 1;
     }
 
     #nextBtn {
@@ -63,9 +69,9 @@
   </style>
 </head>
 <body>
-  <div class="message">There's nothing here</div>
-  <div class="message">Still nothing</div>
-  <div class="message">Fine</div>
+  <div class="message" id="msg1">There's nothing here</div>
+  <div class="message" id="msg2">Still nothing</div>
+  <div class="message" id="msg3">Fine</div>
   <button id="nextBtn" onclick="window.location.href='whatevercomesnext.html'">Next Site</button>
 
   <div id="achievement">
@@ -74,17 +80,18 @@
   </div>
 
   <script>
-    // Display button after messages
     window.onload = () => {
-      setTimeout(() => {
-        document.getElementById("nextBtn").style.display = "block";
-      }, 1500);
+      // Timed appearance of messages
+      setTimeout(() => document.getElementById("msg1").classList.add("visible"), 500);
+      setTimeout(() => document.getElementById("msg2").classList.add("visible"), 2000);
+      setTimeout(() => document.getElementById("msg3").classList.add("visible"), 3500);
+      setTimeout(() => document.getElementById("nextBtn").style.display = "block", 5000);
 
-      // Track refresh count
+      // Refresh count logic
       const key = 'refreshCount';
       const today = new Date().toDateString();
-
       let data = JSON.parse(localStorage.getItem(key)) || {};
+
       if (data.date !== today) {
         data = { date: today, count: 0 };
       }
