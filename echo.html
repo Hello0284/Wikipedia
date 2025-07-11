@@ -1,99 +1,116 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Echo</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>echo</title>
   <style>
     body {
-      background: #000;
+      background-color: black;
       color: white;
       font-family: 'Segoe UI', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+      text-align: center;
+      padding-top: 20vh;
       overflow: hidden;
-      margin: 0;
-    }#message {
-  font-size: 1.8rem;
-  text-align: center;
-  white-space: pre-line;
-}
+    }
 
-.achievement {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  background: #107C10;
-  color: white;
-  padding: 12px 16px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  font-family: 'Segoe UI', sans-serif;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  animation: slideIn 0.7s ease forwards;
-  z-index: 1000;
-}
+    #message {
+      font-size: 2rem;
+      transition: opacity 0.5s ease;
+    }
 
-.achievement img {
-  width: 48px;
-  height: 48px;
-  margin-right: 12px;
-}
+    #nextButton {
+      display: none;
+      margin-top: 2rem;
+      padding: 0.75rem 2rem;
+      font-size: 1.2rem;
+      background-color: #1d1d1d;
+      color: white;
+      border: 1px solid #444;
+      border-radius: 6px;
+      cursor: pointer;
+    }
 
-@keyframes slideIn {
-  from { transform: translateX(-100%); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
-}
+    #nextButton:hover {
+      background-color: #333;
+    }
 
+    /* Xbox-style achievement popup */
+    #achievement {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background-color: #107c10;
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: 10px;
+      font-size: 1rem;
+      box-shadow: 0 0 10px #000;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      z-index: 1000;
+    }
+
+    #achievement img {
+      width: 40px;
+      height: 40px;
+    }
   </style>
 </head>
 <body>
-  <div id="message"></div>  <audio id="xboxSound" preload="auto">
-    <source src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg" type="audio/ogg">
-  </audio>  <script>
-    const phrases = [
-      "There's nothing here...",
-      "Still nothing...",
-      "Fine."
-    ];
+  <div id="message">Loading...</div>
+  <button id="nextButton" onclick="location.href='refined.html'">Next Site</button>
 
-    const refreshKey = 'echo-refresh';
-    const lastResetKey = 'echo-last-reset';
-    const achievementShownKey = 'echo-achievement-shown';
+  <!-- Xbox-style achievement popup -->
+  <div id="achievement">
+    <img src="https://i.imgur.com/LzPNWox.png" alt="Achievement Icon">
+    <div>
+      <strong>Achievement Unlocked</strong><br>
+      You made your point
+    </div>
+  </div>
+
+  <audio id="achievementSound" src="https://downloadwap.com/thumbs2/ringtones/2020/games/18612/xbox_360_achievement.mp3" preload="auto"></audio>
+
+  <script>
+    const hourInMs = 3600000;
+    const lastReset = parseInt(localStorage.getItem("lastResetTime") || "0");
     const now = Date.now();
-    const HOUR = 60 * 60 * 1000;
 
-    const lastReset = parseInt(localStorage.getItem(lastResetKey) || '0');
-    if (now - lastReset > HOUR) {
-      localStorage.setItem(refreshKey, '0');
-      localStorage.setItem(achievementShownKey, 'false');
-      localStorage.setItem(lastResetKey, now.toString());
+    if (now - lastReset > hourInMs) {
+      localStorage.setItem("refreshCount", "0");
+      localStorage.setItem("lastResetTime", now.toString());
     }
 
-    let refreshCount = parseInt(localStorage.getItem(refreshKey) || '0');
-    const shownAchievement = localStorage.getItem(achievementShownKey) === 'true';
+    let count = parseInt(localStorage.getItem("refreshCount") || "0") + 1;
+    localStorage.setItem("refreshCount", count.toString());
 
-    const messageDiv = document.getElementById('message');
-    messageDiv.textContent = phrases[Math.min(refreshCount, phrases.length - 1)];
+    const messageDiv = document.getElementById("message");
+    const nextButton = document.getElementById("nextButton");
 
-    refreshCount++;
-    localStorage.setItem(refreshKey, refreshCount.toString());
-
-    if (refreshCount >= 20 && !shownAchievement) {
-      const achievement = document.createElement('div');
-      achievement.className = 'achievement';
-      achievement.innerHTML = `
-        <img src="https://i.imgur.com/JQpP5tH.png" alt="Xbox Icon">
-        <div>
-          <strong>Achievement Unlocked</strong><br>
-          You Made Your Point
-        </div>
-      `;
-      document.body.appendChild(achievement);
-      document.getElementById('xboxSound').play();
-      localStorage.setItem(achievementShownKey, 'true');
+    if (count === 1) {
+      messageDiv.textContent = "There's nothing here";
+    } else if (count === 2) {
+      messageDiv.textContent = "Still nothing";
+    } else if (count === 3) {
+      messageDiv.textContent = "Fine";
+    } else if (count >= 4) {
+      messageDiv.textContent = "Fine";
+      nextButton.style.display = "inline-block";
     }
-  </script></body>
+
+    // Achievement unlock
+    if (count === 20) {
+      const achievementDiv = document.getElementById("achievement");
+      const sound = document.getElementById("achievementSound");
+      achievementDiv.style.display = "flex";
+      sound.play();
+      setTimeout(() => {
+        achievementDiv.style.display = "none";
+      }, 5000);
+    }
+  </script>
+</body>
 </html>
