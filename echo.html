@@ -74,15 +74,17 @@
   </div>
 
   <script>
-    const key = 'refreshCount';
-    const today = new Date().toDateString();
-    let data = JSON.parse(localStorage.getItem(key)) || {};
+    const key = 'refreshData';
+    const now = Date.now();
+    let data = JSON.parse(localStorage.getItem(key)) || { count: 0, timestamp: now };
 
-    if (data.date !== today) {
-      data = { date: today, count: 0 };
+    // Reset if more than 1 hour has passed
+    if (now - data.timestamp > 3600000) {
+      data = { count: 0, timestamp: now };
     }
 
     data.count++;
+    data.timestamp = now;
     localStorage.setItem(key, JSON.stringify(data));
 
     const count = data.count;
@@ -91,10 +93,7 @@
     if (count >= 2) document.getElementById("msg2").style.display = "block";
     if (count >= 3) document.getElementById("msg3").style.display = "block";
     if (count >= 4) document.getElementById("nextBtn").style.display = "block";
-
-    if (count === 20) {
-      document.getElementById('achievement').style.display = 'flex';
-    }
+    if (count === 20) document.getElementById('achievement').style.display = 'flex';
   </script>
 </body>
 </html>
