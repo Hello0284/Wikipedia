@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Echo</title>
+  <title>echo</title>
   <style>
     body {
       margin: 0;
-      background-color: #111;
+      background: black;
       color: white;
       font-family: 'Segoe UI', sans-serif;
       display: flex;
@@ -16,84 +16,93 @@
       justify-content: center;
       height: 100vh;
       overflow: hidden;
+      text-align: center;
     }
 
-    .message {
+    #message {
       font-size: 1.8rem;
-      margin: 10px;
+      margin-bottom: 20px;
     }
 
     #nextBtn {
-      display: none;
-      margin-top: 20px;
-      padding: 10px 20px;
-      font-size: 1.2rem;
-      background-color: #333;
-      color: white;
+      padding: 12px 24px;
+      background-color: white;
+      color: black;
       border: none;
-      border-radius: 5px;
+      border-radius: 4px;
+      font-size: 1rem;
       cursor: pointer;
+      display: none;
     }
 
     #achievement {
-      display: none;
       position: fixed;
-      bottom: 20px;
-      left: 20px;
+      bottom: 30px;
+      left: 30px;
       background-color: #222;
-      border-left: 5px solid #00aaff;
-      padding: 10px 15px;
+      border: 2px solid #777;
       color: white;
-      font-size: 0.9rem;
-      display: flex;
+      padding: 10px 15px;
+      border-radius: 8px;
+      display: none;
       align-items: center;
       gap: 10px;
-      animation: fadeIn 1s ease;
     }
 
     #achievement img {
       width: 40px;
       height: 40px;
     }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
   </style>
 </head>
 <body>
-  <div class="message" id="msg1" style="display:none;">There's nothing here</div>
-  <div class="message" id="msg2" style="display:none;">Still nothing</div>
-  <div class="message" id="msg3" style="display:none;">Fine</div>
-  <button id="nextBtn" onclick="window.location.href='whatevercomesnext.html'">Next Site</button>
+  <div id="message">Loading...</div>
+  <button id="nextBtn" onclick="window.location.href='hidden.html'">Next</button>
 
   <div id="achievement">
-    <img src="https://static.wikia.nocookie.net/half-life/images/f/f4/Achievement_you_made_your_point.png" alt="Achievement Icon">
-    <div><strong>Achievement Unlocked</strong><br>You Made Your Point</div>
+    <img src="https://i.imgur.com/lU6wYxk.png" alt="Achievement Icon">
+    <span><strong>Achievement Unlocked:</strong> You Made Your Point</span>
   </div>
 
   <script>
-    const key = 'refreshData';
-    const now = Date.now();
-    let data = JSON.parse(localStorage.getItem(key)) || { count: 0, timestamp: now };
+    const hour = 3600000;
+    const key = "echo_refresh_count";
+    const lastTimeKey = "echo_last_refresh";
 
-    // Reset if more than 1 hour has passed
-    if (now - data.timestamp > 3600000) {
-      data = { count: 0, timestamp: now };
+    let count = parseInt(localStorage.getItem(key)) || 0;
+    const lastTime = parseInt(localStorage.getItem(lastTimeKey)) || 0;
+    const now = Date.now();
+
+    if (now - lastTime > hour) {
+      count = 0; // Reset after 1 hour
     }
 
-    data.count++;
-    data.timestamp = now;
-    localStorage.setItem(key, JSON.stringify(data));
+    count++;
+    localStorage.setItem(key, count);
+    localStorage.setItem(lastTimeKey, now);
 
-    const count = data.count;
+    const messages = [
+      "There's nothing here.",
+      "Still nothing.",
+      "Fine."
+    ];
 
-    if (count >= 1) document.getElementById("msg1").style.display = "block";
-    if (count >= 2) document.getElementById("msg2").style.display = "block";
-    if (count >= 3) document.getElementById("msg3").style.display = "block";
-    if (count >= 4) document.getElementById("nextBtn").style.display = "block";
-    if (count === 20) document.getElementById('achievement').style.display = 'flex';
+    const messageEl = document.getElementById("message");
+    const nextBtn = document.getElementById("nextBtn");
+    const achievement = document.getElementById("achievement");
+
+    if (count <= messages.length) {
+      messageEl.textContent = messages[count - 1];
+    } else {
+      messageEl.textContent = " ";
+      nextBtn.style.display = "inline-block";
+    }
+
+    if (count === 20) {
+      achievement.style.display = "flex";
+      const audio = new Audio("https://www.myinstants.com/media/sounds/portal-2-achievement.mp3");
+      audio.play();
+    }
   </script>
 </body>
 </html>
