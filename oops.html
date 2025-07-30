@@ -1,34 +1,107 @@
 <!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The End</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Oops</title>
   <style>
     body {
-      background-color: black;
-      color: white;
-      font-family: monospace;
+      background: black;
+      color: red;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
       margin: 0;
+      font-family: monospace;
+      overflow: hidden;
       flex-direction: column;
-      text-align: center;
-    }.loop-text {
-  font-size: 2rem;
-  animation: flicker 3s infinite;
+    }.glow {
+  font-size: 10vw;
+  font-weight: bold;
+  text-shadow: 0 0 10px red, 0 0 20px red, 0 0 30px crimson;
+  animation: pulse 2s infinite alternate;
 }
 
-@keyframes flicker {
-  0% { opacity: 1; }
-  50% { opacity: 0.3; }
-  100% { opacity: 1; }
+@keyframes pulse {
+  from {
+    opacity: 0.6;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.achievement {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background: #1a1a1a;
+  color: white;
+  padding: 12px 16px;
+  border-left: 6px solid #3cb043;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 0 8px #000;
+  border-radius: 4px;
+  animation: fadeIn 0.3s ease-out;
+  z-index: 9999;
+}
+
+.achievement img {
+  width: 40px;
+  height: 40px;
+  margin-right: 12px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
   </style>
 </head>
 <body>
-  <div class="loop-text">The end is never the end.<br>The end is never the end.<br>The end is never the end.</div>
-</body>
+  <div class="glow">K</div>  <script>
+    const ACHIEVEMENTS_KEY = 'oops_achievements';
+
+    const shown = JSON.parse(localStorage.getItem(ACHIEVEMENTS_KEY)) || {};
+
+    function showAchievement(title, description) {
+      const achievement = document.createElement('div');
+      achievement.className = 'achievement';
+      achievement.innerHTML = `
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Xbox_360_Controller.svg/2048px-Xbox_360_Controller.svg.png" alt="🏆" />
+        <div>
+          <strong>${title}</strong><br>
+          <small>${description}</small>
+        </div>
+      `;
+      document.body.appendChild(achievement);
+      setTimeout(() => achievement.remove(), 6000);
+    }
+
+    if (!shown.wait30) {
+      setTimeout(() => {
+        showAchievement("There's nothing here", "Maybe keep looking...");
+        shown.wait30 = true;
+        localStorage.setItem(ACHIEVEMENTS_KEY, JSON.stringify(shown));
+      }, 30000);
+    }
+
+    if (!shown.wait120) {
+      setTimeout(() => {
+        showAchievement("There’s really nothing here...", "Leave.");
+        shown.wait120 = true;
+        localStorage.setItem(ACHIEVEMENTS_KEY, JSON.stringify(shown));
+      }, 120000);
+    }
+  </script></body>
 </html>
