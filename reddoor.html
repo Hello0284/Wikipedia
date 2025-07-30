@@ -15,7 +15,7 @@
     }
 
     body {
-      background: url('https://images.unsplash.com/photo-1501973801540-537f08ccae7b') no-repeat center center/cover;
+      background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e') no-repeat center center/cover;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -28,13 +28,14 @@
       font-size: 3em;
       opacity: 0;
       transition: opacity 3s ease;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
     }
 
     #nextBtn {
       position: absolute;
       bottom: -60px;
       opacity: 0;
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.85);
       color: #333;
       padding: 12px 28px;
       font-size: 1.2em;
@@ -56,17 +57,17 @@
   <script>
     setTimeout(() => {
       document.getElementById('message').style.opacity = 1;
-    }, 1000); // Fade in message after 1 second
+    }, 1000);
 
     setTimeout(() => {
       document.getElementById('message').style.opacity = 0;
-    }, 9000); // Fade out message after 9 seconds
+    }, 9000);
 
     setTimeout(() => {
       const btn = document.getElementById('nextBtn');
       btn.style.bottom = '40px';
       btn.style.opacity = 1;
-    }, 15000); // Slide in button after 15 seconds
+    }, 15000);
   </script>
 </body>
 </html>
