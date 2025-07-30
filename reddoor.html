@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Red Door</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+      background: black;
+    }
+
+    body {
+      background: url('https://images.unsplash.com/photo-1501973801540-537f08ccae7b') no-repeat center center/cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      position: relative;
+    }
+
+    #message {
+      color: white;
+      font-size: 3em;
+      opacity: 0;
+      transition: opacity 3s ease;
+    }
+
+    #nextBtn {
+      position: absolute;
+      bottom: -60px;
+      opacity: 0;
+      background: rgba(255, 255, 255, 0.8);
+      color: #333;
+      padding: 12px 28px;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 2s ease;
+    }
+
+    #nextBtn:hover {
+      background: rgba(255, 255, 255, 1);
+    }
+  </style>
+</head>
+<body>
+  <div id="message">Good choice.</div>
+  <button id="nextBtn" onclick="location.href='stillness.html'">Next site</button>
+
+  <script>
+    setTimeout(() => {
+      document.getElementById('message').style.opacity = 1;
+    }, 1000); // Fade in message after 1 second
+
+    setTimeout(() => {
+      document.getElementById('message').style.opacity = 0;
+    }, 9000); // Fade out message after 9 seconds
+
+    setTimeout(() => {
+      const btn = document.getElementById('nextBtn');
+      btn.style.bottom = '40px';
+      btn.style.opacity = 1;
+    }, 15000); // Slide in button after 15 seconds
+  </script>
+</body>
+</html>
