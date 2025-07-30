@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Choose Wisely</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: monospace;
+      text-align: center;
+      padding-top: 80px;
+    }
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 60px;
+      text-shadow: 0 0 10px #fff;
+    }
+
+    .doors {
+      display: flex;
+      justify-content: center;
+      gap: 80px;
+    }
+
+    .door {
+      width: 120px;
+      height: 200px;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 15px #000;
+      transition: 0.3s;
+      position: relative;
+    }
+
+    .blue {
+      background: linear-gradient(to bottom, #0033cc, #0066ff);
+      box-shadow: 0 0 20px #00f;
+    }
+
+    .blue:hover {
+      box-shadow: 0 0 40px #00f;
+      transform: scale(1.05);
+    }
+
+    .red {
+      background: linear-gradient(to bottom, #990000, #ff0000);
+      box-shadow: 0 0 20px #f00;
+    }
+
+    .red:hover {
+      box-shadow: 0 0 40px #f00;
+      transform: scale(1.05);
+    }
+
+    .door-label {
+      margin-top: 20px;
+      font-size: 0.9em;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <h1>Choose wisely.</h1>
+  <div class="doors">
+    <a href="bluedoor.html">
+      <div class="door blue"></div>
+      <div class="door-label">Blue Door</div>
+    </a>
+    <a href="reddoor.html">
+      <div class="door red"></div>
+      <div class="door-label">Red Door</div>
+    </a>
+  </div>
+</body>
+</html>
