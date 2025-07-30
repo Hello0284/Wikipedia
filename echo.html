@@ -1,69 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>echo</title>
+  <meta charset="UTF-8">
+  <title>Echo</title>
   <style>
     body {
-      margin: 0;
       background-color: #111;
-      color: #00ff90;
+      color: #0f0;
       font-family: monospace;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
+      padding: 2em;
       overflow: hidden;
     }
 
     #message {
-      font-size: 1.5rem;
-      text-align: center;
-      margin-bottom: 20px;
+      font-size: 1.5em;
+      margin-bottom: 2em;
     }
 
-    #nextButton {
+    #next-btn {
       display: none;
-      background-color: #00ff90;
-      color: black;
+      padding: 0.5em 1em;
+      background-color: #0f0;
+      color: #111;
       border: none;
-      padding: 10px 20px;
-      font-size: 1rem;
       cursor: pointer;
-      border-radius: 5px;
+      font-size: 1em;
     }
 
-    #achievement {
+    /* Achievement Styles */
+    #achievement-box {
       display: none;
       position: fixed;
-      bottom: 30px;
-      left: 30px;
-      background: #222;
+      bottom: 20px;
+      left: 20px;
+      background: rgba(30,30,30,0.95);
+      border: 2px solid #0f0;
+      padding: 10px 14px;
       color: white;
-      border-left: 5px solid #00a300;
-      padding: 10px 15px;
       font-family: Arial, sans-serif;
-      box-shadow: 0 0 10px rgba(0,0,0,0.5);
-      animation: slidein 0.5s ease-out;
-      z-index: 999;
-    }
-
-    #achievement img {
-      width: 40px;
-      height: 40px;
-      margin-right: 10px;
-    }
-
-    @keyframes slidein {
-      from { transform: translateX(-200px); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
-    }
-
-    .achievement-content {
+      width: 320px;
+      z-index: 9999;
       display: flex;
       align-items: center;
+      border-radius: 6px;
+      box-shadow: 0 0 12px #0f0;
+    }
+
+    .achievement-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(45deg, #444, #777);
+      border-radius: 6px;
+      margin-right: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: #0f0;
+      border: 2px solid #0f0;
+      font-weight: bold;
     }
 
     .achievement-text {
@@ -71,69 +66,79 @@
       flex-direction: column;
     }
 
-    .achievement-text span:first-child {
+    .achievement-title {
       font-weight: bold;
+      font-size: 1em;
+    }
+
+    .achievement-desc {
+      font-size: 0.85em;
+      color: #ccc;
     }
   </style>
 </head>
 <body>
 
-  <div id="message"></div>
-  <button id="nextButton" onclick="window.location.href='whisper.html'">Next</button>
+<div id="message">Initializing...</div>
+<button id="next-btn" onclick="location.href='nextpage.html'">Next Site</button>
 
-  <!-- Achievement Notification -->
-  <div id="achievement">
-    <div class="achievement-content">
-      <img src="https://i.imgur.com/zl6YdGS.png" alt="Achievement Icon">
-      <div class="achievement-text">
-        <span>Achievement Unlocked</span>
-        <span>"You made your point"</span>
-      </div>
-    </div>
+<div id="achievement-box">
+  <div class="achievement-icon">🌀</div>
+  <div class="achievement-text">
+    <div class="achievement-title">Achievement Unlocked</div>
+    <div class="achievement-desc">You made your point</div>
   </div>
+</div>
 
-  <audio id="achievementSound" src="https://dl.sndup.net/5c74/Xbox_Achievement.mp3"></audio>
+<audio id="xbox-sound" src="https://upload.wikimedia.org/wikipedia/en/2/27/Xbox_360_Achievement_Unlocked_Sound.ogg"></audio>
 
-  <script>
-    const hourInMs = 3600000;
-    const now = Date.now();
-    const lastReset = parseInt(localStorage.getItem("lastResetTime") || "0");
+<script>
+  const message = document.getElementById('message');
+  const nextBtn = document.getElementById('next-btn');
+  const achievementBox = document.getElementById('achievement-box');
+  const sound = document.getElementById('xbox-sound');
 
-    if (now - lastReset > hourInMs) {
-      localStorage.setItem("refreshCount", "0");
-      localStorage.setItem("lastResetTime", now.toString());
-      localStorage.setItem("achievementShown", "false");
-    }
+  const STORAGE_KEY = 'echo_refresh_count';
+  const ACHIEVEMENT_KEY = 'achievement_echo_master';
+  const LAST_RESET_KEY = 'echo_last_reset';
+  const MAX_COUNT = 20;
+  const RESET_INTERVAL = 60 * 60 * 1000; // 1 hour
 
-    let count = parseInt(localStorage.getItem("refreshCount") || "0") + 1;
-    localStorage.setItem("refreshCount", count.toString());
+  // Reset if 1 hour has passed
+  const lastReset = localStorage.getItem(LAST_RESET_KEY);
+  if (!lastReset || Date.now() - parseInt(lastReset) > RESET_INTERVAL) {
+    localStorage.setItem(STORAGE_KEY, "0");
+    localStorage.setItem(LAST_RESET_KEY, Date.now().toString());
+  }
 
-    const messageDiv = document.getElementById("message");
-    const nextButton = document.getElementById("nextButton");
+  // Count refresh
+  let count = parseInt(localStorage.getItem(STORAGE_KEY) || "0") + 1;
+  localStorage.setItem(STORAGE_KEY, count.toString());
 
-    if (count === 1) {
-      messageDiv.textContent = "There's nothing here";
-    } else if (count === 2) {
-      messageDiv.textContent = "Still nothing";
-    } else if (count >= 3) {
-      messageDiv.textContent = "Fine";
-      nextButton.style.display = "inline-block";
-    }
+  // Show appropriate message
+  if (count === 1) {
+    message.innerText = "There's nothing here";
+  } else if (count === 2) {
+    message.innerText = "Still nothing";
+  } else if (count === 3) {
+    message.innerText = "Fine";
+    nextBtn.style.display = 'inline-block';
+  }
 
-    const achievementDiv = document.getElementById("achievement");
-    const sound = document.getElementById("achievementSound");
-    const alreadyShown = localStorage.getItem("achievementShown") === "true";
+  // Achievement trigger
+  if (count === MAX_COUNT && !localStorage.getItem(ACHIEVEMENT_KEY)) {
+    localStorage.setItem(ACHIEVEMENT_KEY, "unlocked");
+    showAchievement();
+  }
 
-    if (count === 20 && !alreadyShown) {
-      achievementDiv.style.display = "flex";
-      sound.play();
-      localStorage.setItem("achievementShown", "true");
-
-      setTimeout(() => {
-        achievementDiv.style.display = "none";
-      }, 5000);
-    }
-  </script>
+  function showAchievement() {
+    achievementBox.style.display = 'flex';
+    sound.play();
+    setTimeout(() => {
+      achievementBox.style.display = 'none';
+    }, 4000);
+  }
+</script>
 
 </body>
 </html>
