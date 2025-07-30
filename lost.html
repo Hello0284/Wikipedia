@@ -40,13 +40,30 @@
   <p id="message">Good thing I don't have any.</p>
 
   <script>
+    let totalSeconds = 2 * 60 * 60; // 2 hours
+
+    function updateTimer() {
+      const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+      const minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+      const seconds = String(totalSeconds % 60).padStart(2, '0');
+      document.getElementById("timer").textContent = `${hours}:${minutes}:${seconds}`;
+      totalSeconds--;
+    }
+
+    // Start countdown
+    updateTimer();
+    const countdown = setInterval(updateTimer, 1000);
+
+    // Show message after 15s
     setTimeout(() => {
       document.getElementById("message").style.opacity = 1;
-    }, 15000); // 15 seconds
+    }, 15000);
 
+    // Redirect after 16.5s
     setTimeout(() => {
-      window.location.href = "collapse.html"; // Redirect to next site
-    }, 16500); // 1.5 seconds after message appears
+      clearInterval(countdown); // stop ticking
+      window.location.href = "collapse.html";
+    }, 16500);
   </script>
 </body>
 </html>
