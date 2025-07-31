@@ -1,0 +1,78 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>survey.html</title>
+  <style>
+    body {
+      background-color: #0a0a0a;
+      color: #f2f2f2;
+      font-family: monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }#container {
+  max-width: 600px;
+  padding: 2em;
+  text-align: center;
+  background: rgba(20, 20, 20, 0.8);
+  border: 1px solid #333;
+  border-radius: 8px;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
+}
+
+.question {
+  margin-bottom: 2em;
+  font-size: 1.2em;
+}
+
+.btn {
+  background-color: #1a1a1a;
+  color: #f2f2f2;
+  border: 1px solid #555;
+  padding: 0.6em 1.2em;
+  cursor: pointer;
+  font-size: 1em;
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #333;
+}
+
+  </style>
+</head>
+<body>
+  <div id="container">
+    <div id="question" class="question">Are you home alone?</div>
+    <button class="btn" onclick="nextQuestion()">Yes</button>
+    <button class="btn" onclick="nextQuestion()">No</button>
+  </div>  <script>
+    const questions = [
+      "Are you afraid of the dark?",
+      "Has anything changed in your room?",
+      "Did you hear that noise just now?",
+      "Are you sure you're safe?",
+      "Is someone behind you?",
+      "Are you ready to continue?"
+    ];
+
+    let index = 0;
+
+    function nextQuestion() {
+      index++;
+      if (index < questions.length) {
+        document.getElementById("question").textContent = questions[index];
+      } else {
+        setTimeout(() => {
+          window.location.href = "room.html";
+        }, 1000);
+        document.getElementById("question").textContent = "...";
+        document.querySelectorAll(".btn").forEach(btn => btn.style.display = 'none');
+      }
+    }
+  </script></body>
+</html>
