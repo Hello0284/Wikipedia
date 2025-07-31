@@ -3,86 +3,112 @@
 <head>
   <title>Blue Door</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
       margin: 0;
-      background-color: #000;
-      overflow: hidden;
+      padding: 0;
+      background: #000;
       font-family: monospace;
       color: #0ff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
+      overflow: hidden;
+    }
+
+    .scene {
       position: relative;
+      width: 100vw;
+      height: 100vh;
+      background: radial-gradient(ellipse at center, #001d3d 0%, #000 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     .hallway {
+      position: relative;
+      width: 300px;
+      height: 500px;
+      perspective: 800px;
+    }
+
+    .wall {
       position: absolute;
-      width: 100%;
+      background: linear-gradient(to bottom, #003366, #000);
+      box-shadow: 0 0 30px #00f5ff55;
       height: 100%;
-      background: radial-gradient(circle at center, #001d3d 0%, #000 80%);
-      display: flex;
-      justify-content: center;
-      align-items: center;
     }
 
-    .walls {
-      width: 60%;
-      height: 60%;
-      background: linear-gradient(to right, #000, #003355 50%, #000);
-      clip-path: polygon(0 100%, 50% 0, 100% 100%);
-      box-shadow: 0 0 30px #00f5ff, 0 0 60px #00f5ff inset;
-      animation: pulse 4s infinite ease-in-out;
+    .left {
+      width: 30%;
+      left: 0;
+      transform: skewY(-10deg);
     }
 
-    @keyframes pulse {
-      0%, 100% { box-shadow: 0 0 30px #00f5ff, 0 0 60px #00f5ff inset; }
-      50% { box-shadow: 0 0 10px #005577, 0 0 30px #005577 inset; }
+    .right {
+      width: 30%;
+      right: 0;
+      transform: skewY(10deg);
     }
 
-    h1 {
+    .floor {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 20%;
+      background: linear-gradient(to top, #002233, #000);
+    }
+
+    .text {
       position: absolute;
       top: 10%;
-      font-size: 3em;
+      width: 100%;
+      text-align: center;
+      font-size: 2.5em;
       opacity: 0;
-      animation: fadeIn 3s forwards;
+      animation: fadeInText 3s forwards;
       text-shadow: 0 0 10px #00ffff;
     }
 
-    @keyframes fadeIn {
+    @keyframes fadeInText {
       to { opacity: 1; }
     }
 
     .next-button {
       position: absolute;
       bottom: 10%;
-      padding: 12px 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100%);
+      padding: 10px 20px;
       font-size: 1.2em;
-      background-color: rgba(0, 50, 100, 0.8);
+      background-color: rgba(0, 80, 160, 0.9);
       color: #fff;
       border: none;
-      border-radius: 6px;
+      border-radius: 5px;
       cursor: pointer;
       opacity: 0;
-      transform: translateY(50%);
-      animation: slideUp 2s 5s forwards;
       text-shadow: 0 0 5px #0ff;
+      animation: slideUp 2s 5s forwards;
     }
 
     @keyframes slideUp {
       to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateX(-50%) translateY(0);
       }
     }
   </style>
 </head>
 <body>
-  <div class="hallway">
-    <div class="walls"></div>
+  <div class="scene">
+    <div class="hallway">
+      <div class="wall left"></div>
+      <div class="wall right"></div>
+      <div class="floor"></div>
+    </div>
+    <div class="text">wrong choice</div>
+    <button class="next-button" onclick="location.href='nextblue.html'">next site</button>
   </div>
-  <h1>wrong choice</h1>
-  <button class="next-button" onclick="location.href='nextblue.html'">next site</button>
 </body>
 </html>
