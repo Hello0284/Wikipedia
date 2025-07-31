@@ -6,53 +6,52 @@
     body {
       margin: 0;
       background: #000;
-      font-family: monospace;
-      color: #0ff;
       overflow: hidden;
+      font-family: monospace;
+      color: #00ffff;
     }
 
-    .hallway {
+    .smoke {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: radial-gradient(circle at center, #002244 0%, #000 90%);
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, #001f33 0%, #000000 80%);
+      animation: moveSmoke 20s linear infinite alternate;
+      opacity: 0.5;
     }
 
-    .walls {
+    @keyframes moveSmoke {
+      0% { transform: translate(-20%, -20%) scale(1); }
+      100% { transform: translate(-10%, -10%) scale(1.2); }
+    }
+
+    .overlay {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 60vw;
-      height: 80vh;
-      transform: translate(-50%, -50%);
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .wall {
-      width: 20%;
+      width: 100%;
       height: 100%;
-      background: linear-gradient(to bottom, #003366, #000);
-      box-shadow: 0 0 20px #00f5ff33;
+      background: repeating-radial-gradient(circle at center, #00224433, #00000000 100px);
+      animation: flicker 1s infinite;
+      pointer-events: none;
     }
 
-    .center {
-      width: 60%;
-      background: linear-gradient(to bottom, #001122, #000);
-      box-shadow: inset 0 0 40px #00f5ff11;
+    @keyframes flicker {
+      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        opacity: 1;
+      }
+      20%, 22%, 24%, 55% {
+        opacity: 0.3;
+      }
     }
 
     .text {
       position: absolute;
-      top: 15%;
+      top: 20%;
       width: 100%;
       text-align: center;
       font-size: 2.5em;
       opacity: 0;
-      animation: fadeInText 3s forwards;
-      text-shadow: 0 0 10px #00ffff;
+      animation: fadeInText 4s forwards;
+      text-shadow: 0 0 15px #00ffff;
     }
 
     @keyframes fadeInText {
@@ -64,15 +63,15 @@
       bottom: 10%;
       left: 50%;
       transform: translateX(-50%) translateY(100%);
-      padding: 10px 20px;
+      padding: 12px 28px;
       font-size: 1.2em;
-      background-color: rgba(0, 80, 160, 0.9);
+      background-color: rgba(0, 100, 160, 0.9);
       color: #fff;
       border: none;
-      border-radius: 5px;
+      border-radius: 8px;
       cursor: pointer;
       opacity: 0;
-      text-shadow: 0 0 5px #0ff;
+      text-shadow: 0 0 6px #00ffff;
       animation: slideUp 2s 5s forwards;
     }
 
@@ -85,14 +84,9 @@
   </style>
 </head>
 <body>
-  <div class="hallway">
-    <div class="walls">
-      <div class="wall"></div>
-      <div class="center"></div>
-      <div class="wall"></div>
-    </div>
-    <div class="text">wrong choice</div>
-    <button class="next-button" onclick="location.href='nextblue.html'">next site</button>
-  </div>
+  <div class="smoke"></div>
+  <div class="overlay"></div>
+  <div class="text">wrong choice</div>
+  <button class="next-button" onclick="location.href='nextblue.html'">next site</button>
 </body>
 </html>
