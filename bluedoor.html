@@ -8,7 +8,8 @@
       padding: 0;
       font-family: 'Courier New', monospace;
       color: #fff;
-      background: url('https://images.unsplash.com/photo-1581349489738-403d39ae3629?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80') center center / cover no-repeat;
+      background: url('https://images.unsplash.com/photo-1503416997304-7c065421ce52?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80') center center / cover no-repeat;
+      background-color: #000; /* fallback color */
       height: 100vh;
       overflow: hidden;
       display: flex;
@@ -16,14 +17,13 @@
       align-items: center;
       flex-direction: column;
       text-align: center;
-      background-color: #000; /* fallback */
     }
 
     h1 {
       font-size: 3em;
       opacity: 0;
       animation: fadeIn 3s ease-in forwards;
-      text-shadow: 0 0 10px #0ff;
+      text-shadow: 0 0 10px #00ffff;
     }
 
     @keyframes fadeIn {
@@ -56,7 +56,7 @@
   </style>
 </head>
 <body>
-  <h1>choose wisely</h1>
+  <h1>wrong choice</h1>
   <button class="next-button" onclick="window.location.href='nextblue.html'">next site</button>
 </body>
 </html>
