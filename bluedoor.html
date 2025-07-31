@@ -3,66 +3,50 @@
 <head>
   <title>Blue Door</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
     body {
       margin: 0;
-      padding: 0;
       background: #000;
       font-family: monospace;
       color: #0ff;
       overflow: hidden;
     }
 
-    .scene {
-      position: relative;
+    .hallway {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100vw;
       height: 100vh;
-      background: radial-gradient(ellipse at center, #001d3d 0%, #000 100%);
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      background: radial-gradient(circle at center, #002244 0%, #000 90%);
     }
 
-    .hallway {
-      position: relative;
-      width: 300px;
-      height: 500px;
-      perspective: 800px;
+    .walls {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 60vw;
+      height: 80vh;
+      transform: translate(-50%, -50%);
+      display: flex;
+      justify-content: space-between;
     }
 
     .wall {
-      position: absolute;
-      background: linear-gradient(to bottom, #003366, #000);
-      box-shadow: 0 0 30px #00f5ff55;
+      width: 20%;
       height: 100%;
+      background: linear-gradient(to bottom, #003366, #000);
+      box-shadow: 0 0 20px #00f5ff33;
     }
 
-    .left {
-      width: 30%;
-      left: 0;
-      transform: skewY(-10deg);
-    }
-
-    .right {
-      width: 30%;
-      right: 0;
-      transform: skewY(10deg);
-    }
-
-    .floor {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 20%;
-      background: linear-gradient(to top, #002233, #000);
+    .center {
+      width: 60%;
+      background: linear-gradient(to bottom, #001122, #000);
+      box-shadow: inset 0 0 40px #00f5ff11;
     }
 
     .text {
       position: absolute;
-      top: 10%;
+      top: 15%;
       width: 100%;
       text-align: center;
       font-size: 2.5em;
@@ -101,11 +85,11 @@
   </style>
 </head>
 <body>
-  <div class="scene">
-    <div class="hallway">
-      <div class="wall left"></div>
-      <div class="wall right"></div>
-      <div class="floor"></div>
+  <div class="hallway">
+    <div class="walls">
+      <div class="wall"></div>
+      <div class="center"></div>
+      <div class="wall"></div>
     </div>
     <div class="text">wrong choice</div>
     <button class="next-button" onclick="location.href='nextblue.html'">next site</button>
