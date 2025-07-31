@@ -5,58 +5,84 @@
   <style>
     body {
       margin: 0;
-      padding: 0;
-      font-family: 'Courier New', monospace;
-      color: #fff;
-      background: url('https://images.unsplash.com/photo-1503416997304-7c065421ce52?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80') center center / cover no-repeat;
-      background-color: #000; /* fallback color */
-      height: 100vh;
+      background-color: #000;
       overflow: hidden;
+      font-family: monospace;
+      color: #0ff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      position: relative;
+    }
+
+    .hallway {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, #001d3d 0%, #000 80%);
       display: flex;
       justify-content: center;
       align-items: center;
-      flex-direction: column;
-      text-align: center;
+    }
+
+    .walls {
+      width: 60%;
+      height: 60%;
+      background: linear-gradient(to right, #000, #003355 50%, #000);
+      clip-path: polygon(0 100%, 50% 0, 100% 100%);
+      box-shadow: 0 0 30px #00f5ff, 0 0 60px #00f5ff inset;
+      animation: pulse 4s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 30px #00f5ff, 0 0 60px #00f5ff inset; }
+      50% { box-shadow: 0 0 10px #005577, 0 0 30px #005577 inset; }
     }
 
     h1 {
+      position: absolute;
+      top: 10%;
       font-size: 3em;
       opacity: 0;
-      animation: fadeIn 3s ease-in forwards;
+      animation: fadeIn 3s forwards;
       text-shadow: 0 0 10px #00ffff;
     }
 
     @keyframes fadeIn {
-      to {
-        opacity: 1;
-      }
+      to { opacity: 1; }
     }
 
     .next-button {
-      margin-top: 40px;
+      position: absolute;
+      bottom: 10%;
       padding: 12px 24px;
       font-size: 1.2em;
-      background-color: rgba(0, 0, 50, 0.7);
+      background-color: rgba(0, 50, 100, 0.8);
       color: #fff;
       border: none;
-      border-radius: 5px;
+      border-radius: 6px;
       cursor: pointer;
-      transform: translateY(100%);
       opacity: 0;
-      animation: slideIn 3s ease-out 5s forwards;
+      transform: translateY(50%);
+      animation: slideUp 2s 5s forwards;
       text-shadow: 0 0 5px #0ff;
     }
 
-    @keyframes slideIn {
+    @keyframes slideUp {
       to {
-        transform: translateY(0%);
         opacity: 1;
+        transform: translateY(0);
       }
     }
   </style>
 </head>
 <body>
+  <div class="hallway">
+    <div class="walls"></div>
+  </div>
   <h1>wrong choice</h1>
-  <button class="next-button" onclick="window.location.href='nextblue.html'">next site</button>
+  <button class="next-button" onclick="location.href='nextblue.html'">next site</button>
 </body>
 </html>
