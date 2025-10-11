@@ -13,22 +13,42 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
+      perspective: 1000px;
+    }
+
+    .scene {
+      position: relative;
+      width: 250px;
+      height: 420px;
+    }
+
+    .frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 250px;
+      height: 420px;
+      border: 12px solid #2c1a0b;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(255, 220, 180, 0.05);
+      z-index: 2;
     }
 
     .door {
-      position: relative;
-      width: 200px;
-      height: 400px;
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      width: 226px;
+      height: 396px;
       background: linear-gradient(to right, #4b2e14, #7a4a20);
-      border: 4px solid #2c190b;
+      border: 3px solid #2c190b;
       transform-origin: left center;
-      transform: perspective(800px) rotateY(0deg);
+      transform: rotateY(0deg);
       transition: transform 10s ease-in-out;
-      box-shadow: 0 0 40px rgba(255, 255, 255, 0.05);
+      z-index: 3;
     }
 
     .door.open {
-      transform: perspective(800px) rotateY(-100deg);
+      transform: rotateY(-100deg);
     }
 
     .knob {
@@ -42,17 +62,17 @@
     }
 
     .room {
-      opacity: 0;
       position: absolute;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at center, #2c2c2c, #0a0a0a);
+      width: 100vw;
+      height: 100vh;
+      background: radial-gradient(circle at center, #1b1b1b 0%, #050505 80%);
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
+      opacity: 0;
       transition: opacity 3s ease-in-out;
-      z-index: -1;
+      z-index: 1;
     }
 
     .room.visible {
@@ -60,17 +80,29 @@
     }
 
     .phone {
-      width: 120px;
-      height: 120px;
+      width: 130px;
+      height: 130px;
       background: url('https://upload.wikimedia.org/wikipedia/commons/3/3b/Rotary_dial_telephone_icon.png') center/cover no-repeat;
       filter: brightness(0.7);
       cursor: pointer;
       transition: filter 0.3s, transform 0.3s;
+      position: relative;
+      z-index: 4;
     }
 
     .phone:hover {
       filter: brightness(1);
       transform: scale(1.05);
+    }
+
+    .desk {
+      width: 220px;
+      height: 30px;
+      background: #3b2a1b;
+      border-radius: 3px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+      margin-top: 10px;
+      position: relative;
     }
 
     audio {
@@ -80,12 +112,17 @@
 </head>
 <body>
 
-  <div class="door">
-    <div class="knob"></div>
+  <div class="scene">
+    <div class="frame"></div>
+    <div class="door">
+      <div class="knob"></div>
+    </div>
   </div>
 
   <div class="room" id="room">
-    <div class="phone" id="phone"></div>
+    <div class="desk">
+      <div class="phone" id="phone"></div>
+    </div>
   </div>
 
   <audio id="ring" src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_85cf3ce381.mp3?filename=old-telephone-ringing-6698.mp3" loop></audio>
@@ -98,32 +135,32 @@
     const creak = document.getElementById('creak');
     const phone = document.getElementById('phone');
 
-    // Start phone ringing
+    // Start ringing shortly after load
     setTimeout(() => {
       ring.volume = 0.5;
       ring.play();
     }, 1000);
 
-    // Door opens after a delay
+    // Slowly open the door
     setTimeout(() => {
       creak.volume = 0.4;
       creak.play();
       door.classList.add('open');
     }, 5000);
 
-    // Reveal room after door fully opens
+    // Reveal room and phone
     setTimeout(() => {
       room.classList.add('visible');
     }, 13000);
 
-    // Stop ringing when door is fully open
+    // Stop ringing after door fully opens
     setTimeout(() => {
       ring.pause();
     }, 14000);
 
-    // Click phone to go to next site
+    // Click phone → next site
     phone.addEventListener('click', () => {
-      window.location.href = "next.html"; // Change to actual next site
+      window.location.href = "next.html"; // Replace later
     });
   </script>
 
