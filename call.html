@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Call</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: black;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .door {
+      position: relative;
+      width: 200px;
+      height: 400px;
+      background: linear-gradient(to right, #4b2e14, #7a4a20);
+      border: 4px solid #2c190b;
+      transform-origin: left center;
+      transform: perspective(800px) rotateY(0deg);
+      transition: transform 10s ease-in-out;
+      box-shadow: 0 0 40px rgba(255, 255, 255, 0.05);
+    }
+
+    .door.open {
+      transform: perspective(800px) rotateY(-100deg);
+    }
+
+    .knob {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      width: 15px;
+      height: 15px;
+      background: gold;
+      border-radius: 50%;
+    }
+
+    .room {
+      opacity: 0;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, #2c2c2c, #0a0a0a);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      transition: opacity 3s ease-in-out;
+      z-index: -1;
+    }
+
+    .room.visible {
+      opacity: 1;
+    }
+
+    .phone {
+      width: 120px;
+      height: 120px;
+      background: url('https://upload.wikimedia.org/wikipedia/commons/3/3b/Rotary_dial_telephone_icon.png') center/cover no-repeat;
+      filter: brightness(0.7);
+      cursor: pointer;
+      transition: filter 0.3s, transform 0.3s;
+    }
+
+    .phone:hover {
+      filter: brightness(1);
+      transform: scale(1.05);
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="door">
+    <div class="knob"></div>
+  </div>
+
+  <div class="room" id="room">
+    <div class="phone" id="phone"></div>
+  </div>
+
+  <audio id="ring" src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_85cf3ce381.mp3?filename=old-telephone-ringing-6698.mp3" loop></audio>
+  <audio id="creak" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_223c6fce85.mp3?filename=creaking-door-20399.mp3"></audio>
+
+  <script>
+    const door = document.querySelector('.door');
+    const room = document.getElementById('room');
+    const ring = document.getElementById('ring');
+    const creak = document.getElementById('creak');
+    const phone = document.getElementById('phone');
+
+    // Start phone ringing
+    setTimeout(() => {
+      ring.volume = 0.5;
+      ring.play();
+    }, 1000);
+
+    // Door opens after a delay
+    setTimeout(() => {
+      creak.volume = 0.4;
+      creak.play();
+      door.classList.add('open');
+    }, 5000);
+
+    // Reveal room after door fully opens
+    setTimeout(() => {
+      room.classList.add('visible');
+    }, 13000);
+
+    // Stop ringing when door is fully open
+    setTimeout(() => {
+      ring.pause();
+    }, 14000);
+
+    // Click phone to go to next site
+    phone.addEventListener('click', () => {
+      window.location.href = "next.html"; // Change to actual next site
+    });
+  </script>
+
+</body>
+</html>
