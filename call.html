@@ -26,8 +26,8 @@
       position: absolute;
       top: 0;
       left: 0;
-      width: 228px;
-      height: 398px;
+      width: 250px;
+      height: 420px;
       border: 12px solid #2c1a0b;
       box-shadow: 0 0 40px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(255, 220, 180, 0.05);
       z-index: 2;
@@ -79,22 +79,6 @@
       opacity: 1;
     }
 
-    .phone {
-      width: 130px;
-      height: 130px;
-      background: url('https://upload.wikimedia.org/wikipedia/commons/3/3b/Rotary_dial_telephone_icon.png') center/cover no-repeat;
-      filter: brightness(0.7);
-      cursor: pointer;
-      transition: filter 0.3s, transform 0.3s;
-      position: relative;
-      z-index: 4;
-    }
-
-    .phone:hover {
-      filter: brightness(1);
-      transform: scale(1.05);
-    }
-
     .desk {
       width: 220px;
       height: 30px;
@@ -103,6 +87,66 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
       margin-top: 10px;
       position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* --- PHONE (CSS-built rotary phone) --- */
+    .phone {
+      position: relative;
+      width: 100px;
+      height: 70px;
+      background: #111;
+      border-radius: 10px 10px 20px 20px;
+      box-shadow: inset 0 0 10px #000, 0 0 15px rgba(255, 255, 255, 0.1);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .phone::before {
+      content: "";
+      position: absolute;
+      top: -25px;
+      left: 10px;
+      width: 80px;
+      height: 25px;
+      background: #111;
+      border-radius: 20px 20px 5px 5px;
+    }
+
+    .dial {
+      position: absolute;
+      top: 20px;
+      left: 25px;
+      width: 50px;
+      height: 50px;
+      background: radial-gradient(circle, #222 30%, #000 100%);
+      border-radius: 50%;
+      box-shadow: 0 0 6px rgba(255, 255, 255, 0.15);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .dial::before {
+      content: "";
+      width: 15px;
+      height: 15px;
+      background: #0f0;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #0f0;
+      animation: pulse 2s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    .phone:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
     }
 
     audio {
@@ -121,7 +165,9 @@
 
   <div class="room" id="room">
     <div class="desk">
-      <div class="phone" id="phone"></div>
+      <div class="phone" id="phone">
+        <div class="dial"></div>
+      </div>
     </div>
   </div>
 
