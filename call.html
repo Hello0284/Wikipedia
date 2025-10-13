@@ -1,214 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Call</title>
-  <style>
-    body {
-      margin: 0;
-      background-color: black;
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      perspective: 1000px;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Call</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    animation: flicker 2s infinite;
+  }
 
-    .scene {
-      position: relative;
-      width: 250px;
-      height: 420px;
-    }
+  @keyframes flicker {
+    0%, 100% { background-color: rgb(10, 10, 15); }
+    10% { background-color: rgb(20, 20, 25); }
+    20% { background-color: rgb(0, 0, 0); }
+    30% { background-color: rgb(15, 15, 20); }
+    40% { background-color: rgb(5, 5, 10); }
+    50% { background-color: rgb(25, 25, 30); }
+    60% { background-color: rgb(0, 0, 0); }
+    70% { background-color: rgb(18, 18, 23); }
+    80% { background-color: rgb(8, 8, 12); }
+    90% { background-color: rgb(0, 0, 0); }
+  }
 
-    .frame {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 250px;
-      height: 420px;
-      border: 12px solid #2c1a0b;
-      box-shadow: 0 0 40px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(255, 220, 180, 0.05);
-      z-index: 2;
-    }
+  .phone {
+    width: 100px;
+    height: 150px;
+    border-radius: 15px;
+    background: linear-gradient(to bottom, #222, #000);
+    box-shadow: 0 0 15px rgba(0, 200, 255, 0.4);
+    position: relative;
+    cursor: pointer;
+    animation: phoneGlow 1.5s infinite;
+  }
 
-    .door {
-      position: absolute;
-      top: 12px;
-      left: 12px;
-      width: 226px;
-      height: 396px;
-      background: linear-gradient(to right, #4b2e14, #7a4a20);
-      border: 3px solid #2c190b;
-      transform-origin: left center;
-      transform: rotateY(0deg);
-      transition: transform 10s ease-in-out;
-      z-index: 3;
-    }
+  @keyframes phoneGlow {
+    0%, 100% { box-shadow: 0 0 15px rgba(0, 200, 255, 0.4); }
+    50% { box-shadow: 0 0 35px rgba(0, 200, 255, 0.8); }
+  }
 
-    .door.open {
-      transform: rotateY(-100deg);
-    }
+  audio {
+    display: none;
+  }
 
-    .knob {
-      position: absolute;
-      right: 20px;
-      top: 50%;
-      width: 15px;
-      height: 15px;
-      background: gold;
-      border-radius: 50%;
-    }
+  .fade-out {
+    animation: fadeOut 2s forwards;
+  }
 
-    .room {
-      position: absolute;
-      width: 100vw;
-      height: 100vh;
-      background: radial-gradient(circle at center, #1b1b1b 0%, #050505 80%);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      opacity: 0;
-      transition: opacity 3s ease-in-out;
-      z-index: 1;
-    }
-
-    .room.visible {
-      opacity: 1;
-    }
-
-    .desk {
-      width: 220px;
-      height: 30px;
-      background: #3b2a1b;
-      border-radius: 3px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
-      margin-top: 10px;
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    /* --- PHONE (CSS-built rotary phone) --- */
-    .phone {
-      position: relative;
-      width: 100px;
-      height: 70px;
-      background: #111;
-      border-radius: 10px 10px 20px 20px;
-      box-shadow: inset 0 0 10px #000, 0 0 15px rgba(255, 255, 255, 0.1);
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .phone::before {
-      content: "";
-      position: absolute;
-      top: -25px;
-      left: 10px;
-      width: 80px;
-      height: 25px;
-      background: #111;
-      border-radius: 20px 20px 5px 5px;
-    }
-
-    .dial {
-      position: absolute;
-      top: 20px;
-      left: 25px;
-      width: 50px;
-      height: 50px;
-      background: radial-gradient(circle, #222 30%, #000 100%);
-      border-radius: 50%;
-      box-shadow: 0 0 6px rgba(255, 255, 255, 0.15);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .dial::before {
-      content: "";
-      width: 15px;
-      height: 15px;
-      background: #0f0;
-      border-radius: 50%;
-      box-shadow: 0 0 10px #0f0;
-      animation: pulse 2s infinite ease-in-out;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 0.3; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.2); }
-    }
-
-    .phone:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
-    }
-
-    audio {
-      display: none;
-    }
-  </style>
+  @keyframes fadeOut {
+    to { opacity: 0; }
+  }
+</style>
 </head>
 <body>
+  <div class="phone" id="phone"></div>
+  <audio id="ring" loop autoplay>
+    <source src="https://actions.google.com/sounds/v1/alarms/phone_ringing.ogg" type="audio/ogg">
+  </audio>
 
-  <div class="scene">
-    <div class="frame"></div>
-    <div class="door">
-      <div class="knob"></div>
-    </div>
-  </div>
+<script>
+const phone = document.getElementById('phone');
+const ring = document.getElementById('ring');
+let intensified = false;
 
-  <div class="room" id="room">
-    <div class="desk">
-      <div class="phone" id="phone">
-        <div class="dial"></div>
-      </div>
-    </div>
-  </div>
+phone.addEventListener('click', () => {
+  if (intensified) return; 
+  intensified = true;
+  ring.pause();
 
-  <audio id="ring" src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_85cf3ce381.mp3?filename=old-telephone-ringing-6698.mp3" loop></audio>
-  <audio id="creak" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_223c6fce85.mp3?filename=creaking-door-20399.mp3"></audio>
+  // Intensify flicker animation
+  document.body.style.animation = 'flickerFast 0.15s infinite';
 
-  <script>
-    const door = document.querySelector('.door');
-    const room = document.getElementById('room');
-    const ring = document.getElementById('ring');
-    const creak = document.getElementById('creak');
-    const phone = document.getElementById('phone');
+  // Define the faster flicker
+  const style = document.createElement('style');
+  style.innerHTML = `
+    @keyframes flickerFast {
+      0%, 100% { background-color: rgb(0, 0, 0); }
+      25% { background-color: rgb(50, 50, 60); }
+      50% { background-color: rgb(20, 20, 30); }
+      75% { background-color: rgb(10, 10, 15); }
+    }
+  `;
+  document.head.appendChild(style);
 
-    // Start ringing shortly after load
+  // Fade to black and redirect
+  setTimeout(() => {
+    document.body.classList.add('fade-out');
     setTimeout(() => {
-      ring.volume = 0.5;
-      ring.play();
-    }, 1000);
-
-    // Slowly open the door
-    setTimeout(() => {
-      creak.volume = 0.4;
-      creak.play();
-      door.classList.add('open');
-    }, 5000);
-
-    // Reveal room and phone
-    setTimeout(() => {
-      room.classList.add('visible');
-    }, 13000);
-
-    // Stop ringing after door fully opens
-    setTimeout(() => {
-      ring.pause();
-    }, 14000);
-
-    // Click phone → next site
-    phone.addEventListener('click', () => {
-      window.location.href = "next.html"; // Replace later
-    });
-  </script>
-
+      window.location.href = 'answer.html';
+    }, 2000);
+  }, 2500);
+});
+</script>
 </body>
 </html>
