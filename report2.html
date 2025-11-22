@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>INTERNAL BULLETIN — PARENTAL REPORTS</title>
+<style>
+  html,body{height:100%;margin:0;background:#070707;color:#e7e7e7;font-family:"Courier New",Courier,monospace}
+  .wrap{max-width:900px;margin:6vh auto;padding:36px 48px;border-left:6px solid #7a0000;background:linear-gradient(180deg,#0b0b0b,#060606);box-shadow:0 10px 30px rgba(0,0,0,.8)}
+  h1{margin:0 0 12px 0;font-size:20px;letter-spacing:1px}
+  .meta{font-size:12px;opacity:.85;margin-bottom:16px}
+  p{line-height:1.6;font-size:15px;color:#d6d6d6;margin:12px 0;letter-spacing:.9px}
+  .glitch{
+    position:relative;
+  }
+  /* subtle periodic glitch */
+  @keyframes glitchA {
+    0%{transform:translateX(0)}
+    20%{transform:translateX(-1px)}
+    40%{transform:translateX(1px)}
+    60%{transform:translateX(-2px)}
+    80%{transform:translateX(1px)}
+    100%{transform:translateX(0)}
+  }
+  .glitch.glimpse{animation:glitchA .45s ease-in-out}
+  .continue{
+    display:inline-block;margin-top:18px;padding:10px 16px;border-radius:6px;background:#c73b3b;color:#fff;text-decoration:none;font-weight:bold;
+    box-shadow:0 6px 18px rgba(199,59,59,0.12);
+  }
+  .note{margin-top:8px;font-size:13px;color:#999}
+</style>
+</head>
+<body>
+  <main class="wrap" id="content">
+    <h1>INTERNAL BULLETIN — PARENTAL REPORTS</h1>
+    <div class="meta">CONFIDENTIAL • DEPARTMENT OF COMMUNITY SAFETY</div>
+
+    <p>
+      FOLLOWING INITIAL PUBLIC MENTIONS, THIS OFFICE HAS RECEIVED MULTIPLE REPORTS FROM
+      PARENTS AND GUARDIANS REGARDING A CONCENTRATED PATTERN OF CONSUMPTIVE BEHAVIOR AMONG MINORS
+      ASSOCIATED WITH THE AFOREMENTIONED WEB MAZE. REPORTS INDICATE AN ESCALATING ATTACHMENT TO
+      THE PLATFORM, INCLUDING FREQUENT NIGHT-TIME USAGE AND SOCIAL ISOLATION.
+    </p>
+
+    <p class="glitch" id="para2">
+      SEVERAL CASES DETAIL CHILDREN WHO INITIALLY PARTICIPATED IN GROUP SOLVING BUT LATER
+      REDUCED COMMUNICATION WITH FAMILY MEMBERS, SPENT SIGNIFICANT TIME ATTEMPTING TO 'COMPLETE'
+      THE MAZE, AND IN SOME INSTANCES WERE NOT LOCATED IN THEIR HOMES WHEN PARENTS RETURNED.
+    </p>
+
+    <p>
+      WE STRONGLY ADVISE CAREGIVERS TO REVIEW BROWSING HISTORIES, ESTABLISH SCREEN-TIME BOUNDARIES,
+      AND MONITOR SOCIAL CHANNELS WHERE STRATEGIES AND SPOILERS ARE EXCHANGED. THIS OFFICE CONTINUES
+      TO COORDINATE WITH LOCAL SCHOOLS AND CYBER SAFETY GROUPS TO PROVIDE RESOURCES.
+    </p>
+
+    <a class="continue" id="continueBtn" href="next_site.html">CONTINUE</a>
+    <div class="note">THIS DOCUMENT IS A SUMMARY OF REPORTS AND IS NOT INTENDED AS FINAL DETERMINATION.</div>
+  </main>
+
+<script>
+// subtle periodic glitch effect to make it feel unstable
+(function(){
+  const el = document.getElementById('para2');
+  function maybeGlitch(){
+    // random chance every 6-12 seconds
+    const t = 6000 + Math.random()*6000;
+    setTimeout(()=>{
+      el.classList.add('glimpse');
+      setTimeout(()=>el.classList.remove('glimpse'), 480);
+      maybeGlitch();
+    }, t);
+  }
+  maybeGlitch();
+})();
+</script>
+</body>
+</html>
