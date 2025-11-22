@@ -1,181 +1,64 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>NEW GAME TAKING HOMES BY STORM</title>
+<meta charset="UTF-8" />
+<title>New Game Taking Homes By Storm</title>
 <style>
-  :root{
-    --paper:#fbf8ef;
-    --ink:#111;
-    --accent:#b30000;
-    --highlight:#ffd98a;
-  }
-  html,body{height:100%;margin:0;background:var(--paper);color:var(--ink);font-family:"Courier New",Courier,monospace;}
-  .wrap{max-width:900px;margin:6vh auto;padding:36px 48px;border:2px solid rgba(0,0,0,0.08);box-shadow:0 8px 30px rgba(0,0,0,0.06);background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(250,245,230,0.8));}
-  h1{font-size:20px;margin:0 0 18px 0;letter-spacing:1px;}
-  .meta{font-size:12px;margin-bottom:14px;opacity:0.9;}
-  p{line-height:1.55;letter-spacing:0.9px;margin:14px 0;font-size:15px;}
-  .num{
-    display:inline-block;
-    padding:0 2px;
-    margin:0 -1px;
-    color:var(--accent);
-    font-weight:bold;
-    cursor:pointer;
-    user-select:none;
-    border-radius:2px;
-    transition:background .18s, transform .12s;
-  }
-  .num:active{transform:translateY(1px) scale(.995);}
-  .num.clicked{background:var(--highlight); color:#000;}
-  /* subtle clickable hint on hover but not too shouty */
-  .num:hover{background:rgba(179,0,0,0.08);}
+    body {
+        background: #f2f2f2;
+        font-family: "Courier New", Courier, monospace;
+        padding: 40px;
+        line-height: 1.6;
+        font-size: 19px;
+        color: #000;
+    }
 
-  /* shake */
-  @keyframes shake { 0%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(5px)}60%{transform:translateX(-4px)}80%{transform:translateX(2px)}100%{transform:translateX(0)}}
-  .shake{animation:shake .45s ease-in-out;}
+    .container {
+        max-width: 700px;
+        margin: auto;
+        background: #fff;
+        padding: 30px 40px;
+        border: 2px solid black;
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
 
-  .note{font-size:12px;margin-top:8px;color:#444;opacity:0.9;}
-  .footer{margin-top:26px;font-size:12px;color:#333;opacity:0.8;border-top:1px dashed rgba(0,0,0,0.06);padding-top:12px;}
-  .success{display:none;margin-top:8px;color:#0a680a;font-weight:bold;}
-  .small{font-size:13px;color:#333;opacity:0.9}
+    span.code {
+        font-family: "Courier New", Courier, monospace;
+        font-size: inherit;
+        color: inherit;
+        cursor: default; /* no pointer */
+        user-select: none;
+    }
 </style>
 </head>
+
 <body>
-  <main class="wrap" id="doc">
-    <h1>NEW GAME TAKING HOMES BY STORM</h1>
-    <div class="meta">PUBLIC NOTICE — DIGITAL MEDIA &AMP; YOUTH RECREATION OFFICE • BULLETIN 2025-08</div>
-
-    <p>
-      PARENTS AND EDUCATORS ARE REPORTING A RAPID RISE IN THE USAGE OF A NEW, ANONYMOUS
-      WEB MAZE PLATFORM. THE PLATFORM IS DESCRIBED BY USERS AS A SERIES OF INTERCONNECTED SITES, SHORT
-      PUZZLES, AND A STRONG VIRAL COMPONENT. IN MANY COMMUNITIES THE TITLE HAS BECOME A
-      <strong>SENSA7ION</strong> AMONG TEENS AND YOUNG ADULTS.
-    </p>
-
-    <p>
-      ANALYSTS SUGGEST THE DESIGN WEAVES SHARED CLUES AND REWARD LOOPS THAT ENCOURAGE RE-CHECKING
-      PROGRESS AND COOPERATIVE SOLVING. EARLY SURVEYS SHOW USERS SPEND CONSIDERABLY MORE TIME
-      THAN TRADITIONAL BROWSING HABITS WOULD PREDICT; SOME REPORT EXTENDED SESSIONS LASTING SEVERAL
-      HOURS OR MORE, FREQUENTLY AT NIGHT.
-    </p>
-
-    <p>
-      SCHOOLS HAVE NOTED A RISE IN UNUSUAL ONLINE TRAFFIC PATTERNS AROUND EVENING HOURS. PARENTS
-      HAVE CALLED HOTLINES WITH QUESTIONS ABOUT CONTENT, SHARING, AND POTENTIAL ADDICTIVE BEHAVIOR.
-      MEDIA COVERAGE HAS ALSO FOLLOWED, WITH SOME OUTLETS CHARACTERIZING THE PHENOMENON AS A CULTURAL
-      MINI-TRAJECTO9Y RATHER THAN A SINGLE GAME TITLE.
-    </p>
-
-    <p>
-      THE TECH COMMUNITY HAS FLAGGED THE PLATFORM FOR FURTHER REVIEW. OBSERVERS NOTE THAT SOME
-      NAVIGATION ELEMENTS APPEAR TO ENCOURAGE EXPLORATION THROUGH OBSCURED LINKS AND HIDDEN
-      CLUES THAT CAN BE SHARED VIA MESSAGES OR FORUMS. WHILE THAT GALVANIZES COMMUNITY, IT ALSO
-      RAISES QUESTIONS AROUND SUPERVISION AND SCREEN TIME MANAGEMENT, ESPECIALLY AMONG MINORS.
-    </p>
-
-    <p>
-      LOCAL AFTERSCHOOL GROUPS HAVE BEGUN HOSTING WORKSHOPS ON DIGITAL LITERACY AND SAFE BROWSING,
-      SEEKING TO PROVIDE GUIDANCE AS NETWORKS ADJUST TO THE RAPIDLY CHANGING LANDSCAPE.
-      THIS OFFICE WILL CONTINUE MONITORING AND UPDATE ADVISORIES AS NEW DATA EMERGES.
-    </p>
-
-    <p class="note small">— END OF PUBLIC BULLETIN —</p>
-
-    <div class="footer small">
-      DOCUMENT ID: DOP-2025-441 <br />
-      LAST UPDATED: 2025-11-20
-      <div class="success" id="success">INTERNAL UPDATE ACCESS GRANTED — LOADING RELATED FILE...</div>
-    </div>
-  </main>
+<div class="container">
+<p>
+A new online trend, known as the W<sup><span class="code" data-num="6">6</span></sup>B Maze, has been spreading rapidly among younger audiences.  
+The ga<sup><span class="code" data-num="7">7</span></sup>e, which appears harmless on the surface, encourages users to navigate through a series of interconnected pages in search of hidden endings and secrets.  
+Participation has increa<sup><span class="code" data-num="8">8</span></sup>ed significantly over the past month, drawing attention from both parents and educators.  
+Analysts say its popularity may continue to ri<sup><span class="code" data-num="9">9</span></sup>e as more children discover the challenge.
+</p>
+</div>
 
 <script>
-/*
-  Hidden numbers are placed as parts of words.
-  They are embedded in scrambled order in the document: 7, 9, 8, 6
-  Correct click order to unlock: 6 -> 7 -> 8 -> 9
-*/
+let sequence = ["6","7","8","9"];
+let progress = 0;
 
-/* We'll add the clickable digits programmatically so they blend with surrounding text.
-   Locations chosen above:
-   - SENSA7ION   (7)
-   - TRAJECTO9Y  (9)
-   - GALVANIZE8  (8)
-   - DOP-2025-44 6  (6) => we'll insert 6 into document id for subtlety
-*/
-
-(function(){
-  // map of the digits and the DOM search-replace strings
-  const replacements = [
-    { find: 'SENSA7ION', num: 7 },
-    { find: 'TRAJECTO9Y', num: 9 },
-    { find: 'GALVANIZE8', num: 8 },
-    { find: 'DOP-2025-441', num: 6 } // we'll replace tail so it shows 6 at end
-  ];
-
-  // replace occurrences in the document text (wrap the digits with a span.num)
-  const container = document.getElementById('doc');
-  let html = container.innerHTML;
-
-  replacements.forEach(item=>{
-    // replace the exact token with token where the digit is a span
-    // find the token and replace the digit with span
-    const token = item.find;
-    // find the digit inside token
-    const digitStr = String(item.num);
-    // create token with span
-    // create version where digit replaced by span with data-num
-    const tokenWithSpan = token.replace(digitStr, `<span class="num" data-num="${item.num}">${digitStr}</span>`);
-    // replace only the first occurrence
-    html = html.replace(token, tokenWithSpan);
-  });
-
-  container.innerHTML = html;
-
-  // Desired click order
-  const correctOrder = ['6','7','8','9'];
-  let progress = 0;
-  const clicked = [];
-
-  function resetWrong() {
-    progress = 0;
-    clicked.length = 0;
-    document.querySelectorAll('.num').forEach(el => el.classList.remove('clicked'));
-    const wrap = document.querySelector('.wrap');
-    wrap.classList.remove('shake');
-    // add temporary shake for feedback
-    wrap.classList.add('shake');
-    setTimeout(()=>wrap.classList.remove('shake'), 480);
-  }
-
-  // attach listeners
-  document.querySelectorAll('.num').forEach(el=>{
-    el.addEventListener('click', ()=>{
-      const val = el.getAttribute('data-num');
-      // if already clicked, ignore
-      if (el.classList.contains('clicked')) return;
-
-      // check if it's the next required
-      if (val === correctOrder[progress]) {
-        el.classList.add('clicked');
-        clicked.push(val);
-        progress++;
-        // if finished
-        if (progress === correctOrder.length) {
-          // success
-          document.getElementById('success').style.display = 'block';
-          // slight pause, then redirect
-          setTimeout(()=>{ window.location.href = 'report2.html'; }, 900);
+document.querySelectorAll(".code").forEach(num => {
+    num.addEventListener("click", () => {
+        if (num.dataset.num === sequence[progress]) {
+            progress++;
+            if (progress === sequence.length) {
+                window.location.href = "report2.html"; 
+            }
+        } else {
+            progress = 0; 
         }
-      } else {
-        // wrong - reset
-        resetWrong();
-      }
     });
-  });
-
-})();
+});
 </script>
+
 </body>
 </html>
