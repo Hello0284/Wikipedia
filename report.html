@@ -22,11 +22,14 @@
         box-shadow: 0 0 15px rgba(0,0,0,0.2);
     }
 
-    span.code {
-        font-family: "Courier New", Courier, monospace;
+    /* Numbers must look *exactly* like letters */
+    .num {
+        font-family: inherit;
         font-size: inherit;
         color: inherit;
-        cursor: default; /* no pointer */
+        font-weight: inherit;
+        line-height: inherit;
+        cursor: default;
         user-select: none;
     }
 </style>
@@ -35,10 +38,10 @@
 <body>
 <div class="container">
 <p>
-A new online trend, known as the W<sup><span class="code" data-num="6">6</span></sup>B Maze, has been spreading rapidly among younger audiences.  
-The ga<sup><span class="code" data-num="7">7</span></sup>e, which appears harmless on the surface, encourages users to navigate through a series of interconnected pages in search of hidden endings and secrets.  
-Participation has increa<sup><span class="code" data-num="8">8</span></sup>ed significantly over the past month, drawing attention from both parents and educators.  
-Analysts say its popularity may continue to ri<sup><span class="code" data-num="9">9</span></sup>e as more children discover the challenge.
+A new online trend, known as the W<span class="num" data-num="6">6</span>B Maze, has been spreading rapidly among younger audiences.  
+The ga<span class="num" data-num="7">7</span>e, which appears harmless on the surface, encourages users to navigate through a series of interconnected pages in search of hidden endings and secrets.  
+Participation has increa<span class="num" data-num="8">8</span>ed significantly over the past month, drawing attention from both parents and educators.  
+Analysts say its popularity may continue to ri<span class="num" data-num="9">9</span>e as more children discover the challenge.
 </p>
 </div>
 
@@ -46,15 +49,15 @@ Analysts say its popularity may continue to ri<sup><span class="code" data-num="
 let sequence = ["6","7","8","9"];
 let progress = 0;
 
-document.querySelectorAll(".code").forEach(num => {
-    num.addEventListener("click", () => {
-        if (num.dataset.num === sequence[progress]) {
+document.querySelectorAll(".num").forEach(n => {
+    n.addEventListener("click", () => {
+        if (n.dataset.num === sequence[progress]) {
             progress++;
             if (progress === sequence.length) {
-                window.location.href = "report2.html"; 
+                window.location.href = "report2.html";
             }
         } else {
-            progress = 0; 
+            progress = 0;
         }
     });
 });
