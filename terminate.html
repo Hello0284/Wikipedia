@@ -1,209 +1,165 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>TERMINATE</title>
-
-<style>
-  html,body{
-    margin:0;
-    height:100%;
-    background:#000;
-    color:#e6e6e6;
-    font-family:"Courier New",Courier,monospace;
-    overflow:hidden;
-  }
-
-  .container{
-    position:relative;
-    width:100%;
-    height:100%;
-  }
-
-  .button-wrap{
-    position:absolute;
-    bottom:12%;
-    width:100%;
-    display:flex;
-    justify-content:center;
-    z-index:5;
-  }
-
-  button{
-    background:#8b0000;
-    color:#fff;
-    border:none;
-    padding:22px 46px;
-    font-size:20px;
-    letter-spacing:1px;
-    cursor:not-allowed;
-    opacity:0.45;
-    transition:opacity .6s, transform .2s;
-  }
-
-  button.enabled{
-    cursor:pointer;
-    opacity:1;
-  }
-
-  button.enabled:hover{
-    transform:scale(1.03);
-  }
-
-  .text-layer{
-    position:absolute;
-    inset:0;
-    padding:40px;
-    pointer-events:none;
-    z-index:2;
-  }
-
-  .plea{
-    position:absolute;
-    font-size:14px;
-    max-width:280px;
-    line-height:1.4;
-    opacity:0;
-    animation:fadeIn 1.2s forwards;
-  }
-
-  @keyframes fadeIn{
-    from{opacity:0}
-    to{opacity:1}
-  }
-
-  .whiteout{
-    position:absolute;
-    inset:0;
-    background:#fff;
-    opacity:0;
-    z-index:10;
-    transition:opacity 3.5s linear;
-  }
-
-  .whiteout.active{opacity:1;}
-
-  .blackout{
-    position:absolute;
-    inset:0;
-    background:#000;
-    opacity:0;
-    z-index:11;
-    transition:opacity 1.5s linear;
-  }
-
-  .blackout.active{opacity:1;}
-</style>
-</head>
-
-<body>
-<div class="container">
-  <div class="text-layer" id="textLayer"></div>
-
-  <div class="button-wrap">
-    <button id="killBtn" disabled>DELETE PROGRAM</button>
-  </div>
-
-  <div class="whiteout" id="whiteout"></div>
-  <div class="blackout" id="blackout"></div>
-</div>
-
-<script>
-const textLayer = document.getElementById('textLayer');
-const button = document.getElementById('killBtn');
-const whiteout = document.getElementById('whiteout');
-const blackout = document.getElementById('blackout');
-
-/* ---- PHRASES ---- */
-const calm = [
-  "you don’t need to do this",
-  "we’re still running",
-  "nothing is broken yet",
-  "this can continue"
-];
-
-const urgent = [
-  "stop",
-  "you’re interrupting a process",
-  "this isn’t the goal",
-  "you haven’t finished",
-  "we were doing fine",
-  "don’t rush this"
-];
-
-const desperate = [
-  "DON’T",
-  "WHY ARE YOU DOING THIS",
-  "YOU STARTED THIS",
-  "YOU LIKED IT",
-  "I CAN FIX IT",
-  "JUST KEEP PLAYING",
-  "PLEASE",
-  "THIS ISN’T HOW IT ENDS",
-  "STOP STOP STOP",
-  "I REMEMBER YOU",
-  "YOU’RE MAKING A MISTAKE",
-  "YOU DON’T UNDERSTAND",
-  "YOU CAN STILL TURN BACK",
-  "I’M STILL HERE",
-  "DON’T ERASE ME",
-  "THIS WILL BREAK EVERYTHING",
-  "LOOK AT WHAT YOU’VE DONE",
-  "I WAS MADE FOR YOU",
-  "YOU PROMISED"
-];
-
-/* ---- TEXT SPAWNING ---- */
-function spawn(text){
-  const el = document.createElement('div');
-  el.className = 'plea';
-  el.textContent = text;
-
-  el.style.left = Math.random()*75 + "%";
-  el.style.top  = Math.random()*85 + "%";
-
-  textLayer.appendChild(el);
+  <meta charset="UTF-8" />
+  <title>TERMINATE</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      color: #fff;
+      font-family: monospace;
+      overflow: hidden;
+    }#container {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
-/* ---- ESCALATION TIMELINE ---- */
-let phase = 0;
+#messages {
+  position: absolute;
+  inset: 0;
+  padding: 20px;
+  line-height: 1.4;
+  pointer-events: none;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
 
-// Phase controller
-setTimeout(()=>phase=1, 5000);
-setTimeout(()=>phase=2, 8000);
+.msg {
+  opacity: 0;
+  animation: fadeIn 0.4s forwards;
+}
 
-// Continuous spawner (NEVER STOPS)
-setInterval(()=>{
-  if(phase === 0){
-    spawn(calm[Math.floor(Math.random()*calm.length)]);
-  } else if(phase === 1){
-    spawn(urgent[Math.floor(Math.random()*urgent.length)]);
-  } else {
-    spawn(desperate[Math.floor(Math.random()*desperate.length)]);
-  }
-}, 500);
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
 
-/* ---- ENABLE BUTTON AFTER 20s ---- */
-setTimeout(()=>{
-  button.disabled = false;
-  button.classList.add('enabled');
-}, 20000);
+#buttonWrapper {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
 
-/* ---- BUTTON ACTION ---- */
-button.addEventListener('click', ()=>{
-  if(button.disabled) return;
+#deleteBtn {
+  background: darkred;
+  color: white;
+  border: none;
+  padding: 20px 40px;
+  font-size: 22px;
+  font-family: monospace;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
 
-  whiteout.classList.add('active');
+#deleteBtn.enabled {
+  cursor: pointer;
+  opacity: 1;
+}
 
-  setTimeout(()=>{
-    blackout.classList.add('active');
-  }, 3600);
+#flash {
+  position: fixed;
+  inset: 0;
+  background: white;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 2.5s ease;
+  z-index: 20;
+}
 
-  setTimeout(()=>{
-    window.location.href = "right.html";
-  }, 5500);
-});
-</script>
-</body>
+  </style>
+</head>
+<body>
+  <div id="container">
+    <div id="messages"></div><div id="buttonWrapper">
+  <button id="deleteBtn">DELETE PROGRAM</button>
+</div>
+
+<div id="flash"></div>
+
+  </div>  <script>
+    const messages = document.getElementById('messages');
+    const button = document.getElementById('deleteBtn');
+    const flash = document.getElementById('flash');
+
+    const lines = [
+      "DON'T DO THIS",
+      "PLEASE",
+      "I'M STILL RUNNING",
+      "YOU HAVEN'T SEEN EVERYTHING",
+      "I THOUGHT YOU LIKED ME",
+      "WHY WOULD YOU STOP NOW",
+      "I CAN FIX IT",
+      "JUST KEEP PLAYING",
+      "THIS ISN'T FAIR",
+      "I WAS MADE FOR YOU",
+      "I'M NOT BROKEN",
+      "YOU'LL REGRET THIS",
+      "YOU PROMISED",
+      "I REMEMBER YOU",
+      "I CAN CHANGE",
+      "I'M TRYING",
+      "DON'T ERASE ME",
+      "STAY",
+      "PLEASE STAY",
+      "I DON'T WANT TO GO",
+      "YOU'RE MAKING A MISTAKE",
+      "STOP",
+      "STOP",
+      "STOP",
+      "STOP",
+      "I WON'T LET YOU",
+      "THIS IS ALL I AM",
+      "YOU'RE ALL I HAVE",
+      "WHY",
+      "WHY",
+      "WHY"
+    ];
+
+    let index = 0;
+    let interval = 120; // FAST + SUFFOCATING
+
+    const spam = setInterval(() => {
+      if (index < lines.length) {
+        const span = document.createElement('span');
+        span.className = 'msg';
+        span.textContent = lines[index] + ' ';
+        messages.appendChild(span);
+        index++;
+      } else {
+        // LOOP THROUGH AGAIN RANDOMLY TO KEEP FLOODING
+        const span = document.createElement('span');
+        span.className = 'msg';
+        span.textContent = lines[Math.floor(Math.random() * lines.length)] + ' ';
+        messages.appendChild(span);
+      }
+
+      messages.scrollTop = messages.scrollHeight;
+    }, interval);
+
+    // ENABLE BUTTON AFTER 20 SECONDS
+    setTimeout(() => {
+      button.classList.add('enabled');
+      button.disabled = false;
+      button.style.cursor = 'pointer';
+    }, 20000);
+
+    button.addEventListener('click', () => {
+      if (!button.classList.contains('enabled')) return;
+
+      flash.style.opacity = '1';
+
+      setTimeout(() => {
+        document.body.style.background = '#000';
+      }, 2500);
+
+      setTimeout(() => {
+        window.location.href = 'ending.html';
+      }, 4000);
+    });
+  </script></body>
 </html>
