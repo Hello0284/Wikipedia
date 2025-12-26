@@ -16,20 +16,23 @@
   h1{font-size:20px;margin:0 0 18px 0;letter-spacing:1px;}
   .meta{font-size:12px;margin-bottom:14px;opacity:0.9;}
   p{line-height:1.55;letter-spacing:0.9px;margin:14px 0;font-size:15px;}
+
+  /* ONLY CHANGE IS HERE */
   .num{
     display:inline-block;
     padding:0 2px;
     margin:0 -1px;
-    color:var(--accent);
-    font-weight:bold;
+    color:inherit;
+    font-weight:inherit;
     cursor:pointer;
     user-select:none;
     border-radius:2px;
     transition:background .18s, transform .12s;
   }
+
   .num:active{transform:translateY(1px) scale(.995);}
   .num.clicked{background:var(--highlight); color:#000;}
-  .num:hover{background:rgba(179,0,0,0.08);}
+  .num:hover{background:rgba(0,0,0,0.06);}
 
   @keyframes shake {
     0%{transform:translateX(0)}
