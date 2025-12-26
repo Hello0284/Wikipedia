@@ -1,100 +1,157 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>INTERNAL REPORT</title>
-  <style>
-    body {
-      background-color: #f4f1ec;
-      color: #111;
-      font-family: "Courier New", Courier, monospace;
-      padding: 40px;
-      line-height: 1.6;
-    }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>NEW GAME TAKING HOMES BY STORM</title>
+<style>
+  :root{
+    --paper:#fbf8ef;
+    --ink:#111;
+    --accent:#b30000;
+    --highlight:#ffd98a;
+  }
+  html,body{height:100%;margin:0;background:var(--paper);color:var(--ink);font-family:"Courier New",Courier,monospace;}
+  .wrap{max-width:900px;margin:6vh auto;padding:36px 48px;border:2px solid rgba(0,0,0,0.08);box-shadow:0 8px 30px rgba(0,0,0,0.06);background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(250,245,230,0.8));}
+  h1{font-size:20px;margin:0 0 18px 0;letter-spacing:1px;}
+  .meta{font-size:12px;margin-bottom:14px;opacity:0.9;}
+  p{line-height:1.55;letter-spacing:0.9px;margin:14px 0;font-size:15px;}
+  .num{
+    display:inline-block;
+    padding:0 2px;
+    margin:0 -1px;
+    color:var(--accent);
+    font-weight:bold;
+    cursor:pointer;
+    user-select:none;
+    border-radius:2px;
+    transition:background .18s, transform .12s;
+  }
+  .num:active{transform:translateY(1px) scale(.995);}
+  .num.clicked{background:var(--highlight); color:#000;}
+  .num:hover{background:rgba(179,0,0,0.08);}
 
-    .report {
-      max-width: 800px;
-      margin: auto;
-    }
+  @keyframes shake {
+    0%{transform:translateX(0)}
+    20%{transform:translateX(-6px)}
+    40%{transform:translateX(5px)}
+    60%{transform:translateX(-4px)}
+    80%{transform:translateX(2px)}
+    100%{transform:translateX(0)}
+  }
+  .shake{animation:shake .45s ease-in-out;}
 
-    .number {
-      cursor: pointer;
-    }
-  </style>
+  .note{font-size:12px;margin-top:8px;color:#444;opacity:0.9;}
+  .footer{margin-top:26px;font-size:12px;color:#333;opacity:0.8;border-top:1px dashed rgba(0,0,0,0.06);padding-top:12px;}
+  .success{display:none;margin-top:8px;color:#0a680a;font-weight:bold;}
+  .small{font-size:13px;color:#333;opacity:0.9}
+</style>
 </head>
 <body>
-  <div class="report">
-    <p>
-      INTERNAL COMMUNICATION — FOR GENERAL DISTRIBUTION
-    </p>
+<main class="wrap" id="doc">
+  <h1>NEW GAME TAKING HOMES BY STORM</h1>
+  <div class="meta">PUBLIC NOTICE — DIGITAL MEDIA & YOUTH RECREATION OFFICE • BULLETIN 2025-08</div>
 
-    <p>
-      Over the past several months, a new interactive web experience has emerged,
-      rapidly gaining popularity among younger demographics. The platform, commonly
-      referred to online as a viral maze-style sensa7ion, has been shared widely
-      across forums, private messages, and school networks.
-    </p>
+  <p>
+    PARENTS AND EDUCATORS ARE REPORTING A RAPID RISE IN THE USAGE OF A NEW, ANONYMOUS
+    WEB MAZE PLATFORM. THE PLATFORM IS DESCRIBED BY USERS AS A SERIES OF INTERCONNECTED SITES, SHORT
+    PUZZLES, AND A STRONG VIRAL COMPONENT. IN MANY COMMUNITIES THE TITLE HAS BECOME A
+    SENSA7ION AMONG TEENS AND YOUNG ADULTS.
+  </p>
 
-    <p>
-      Users describe the experience as confusing, immersive, and difficult to
-      abandon once engaged. Reports indicate extended sessions lasting multiple
-      hours, with participants expressing a desire to “reach the end,” despite
-      unclear objectives.
-    </p>
+  <p>
+    ANALYSTS SUGGEST THE DESIGN WEAVES SHARED CLUES AND REWARD LOOPS THAT ENCOURAGE RE-CHECKING
+    PROGRESS AND COOPERATIVE SOLVING. EARLY SURVEYS SHOW USERS SPEND CONSIDERABLY MORE TIME
+    THAN TRADITIONAL BROWSING HABITS WOULD PREDICT; SOME REPORT EXTENDED SESSIONS LASTING SEVERAL
+    HOURS OR MORE, FREQUENTLY AT NIGHT.
+  </p>
 
-    <p>
-      Analysts note that the maze’s structure appears intentionally disorganized,
-      encouraging repeated exploration and incorrect assumptions. One internal
-      observer described the system as “designed to feel solvable, while quietly
-      resisting completion.”
-    </p>
+  <p>
+    SCHOOLS HAVE NOTED A RISE IN UNUSUAL ONLINE TRAFFIC PATTERNS AROUND EVENING HOURS. PARENTS
+    HAVE CALLED HOTLINES WITH QUESTIONS ABOUT CONTENT, SHARING, AND POTENTIAL ADDICTIVE BEHAVIOR.
+    MEDIA COVERAGE HAS ALSO FOLLOWED, WITH SOME OUTLETS CHARACTERIZING THE PHENOMENON AS A CULTURAL
+    MINI-TRAJECTO9Y RATHER THAN A SINGLE GAME TITLE.
+  </p>
 
-    <p>
-      Of particular interest is the rapid adoption rate. Initial metrics suggest
-      the platform spread through at least si6ilar channels simultaneously, bypassing
-      traditional visibility patterns. Engagement continues to rise despite the
-      absence of official promotion.
-    </p>
+  <p>
+    THE TECH COMMUNITY HAS FLAGGED THE PLATFORM FOR FURTHER REVIEW. OBSERVERS NOTE THAT SOME
+    NAVIGATION ELEMENTS APPEAR TO ENCOURAGE EXPLORATION THROUGH OBSCURED LINKS AND HIDDEN
+    CLUES THAT CAN BE SHARED VIA MESSAGES OR FORUMS. WHILE THAT GALVANIZES COMMUNITY, IT ALSO
+    RAISES QUESTIONS AROUND SUPERVISION AND SCREEN TIME MANAGEMENT, ESPECIALLY AMONG MINORS.
+  </p>
 
-    <p>
-      While no direct harm has been reported, educators and guardians have begun to
-      express concern. A small but notable number of cases mention students becoming
-      unusually withdrawn, prioritizing the experience over routine activities, and
-      remaining online late into the night with minimal rest.
-    </p>
+  <p>
+    LOCAL AFTERSCHOOL GROUPS HAVE BEGUN HOSTING WORKSHOPS ON DIGITAL LITERACY AND SAFE BROWSING,
+    SEEKING TO PROVIDE GUIDANCE AS NETWORKS ADJUST TO THE RAPIDLY CHANGING LANDSCAPE. SOME
+    OFFICIALS NOTE REPEATIN6 PATTERNS TO EARLIER DIGITAL PHENOMENA.
+  </p>
 
-    <p>
-      Further investigation is recommended. Early testing shows the maze adapts
-      differently depending on user choices, though no two recorded paths have
-      appeared identical. Observers warn that assuming a correct order too early may
-      lead participants away from intended conclusions, or toward unintended ones.
-    </p>
+  <p>
+    INTERNAL REFERENCES INCLUDE GALVANIZ8D COMMUNITIES AND RECURSIVE PATTERNS THAT EMERGE
+    DURING EXTENDED ENGAGEMENT PERIODS.
+  </p>
 
-    <p>
-      Internal reference terms include ma8e behavior modeling, recursive pa9tern
-      recognition, and delayed feedback loops. Documentation remains incomplete.
-    </p>
+  <p class="note small">— END OF PUBLIC BULLETIN —</p>
 
-    <p>
-      This report will remain available pending further review.
-    </p>
+  <div class="footer small">
+    DOCUMENT ID: DOP-ARCHIVE-ALPHA <br />
+    LAST UPDATED: 2025-11-20
+    <div class="success" id="success">INTERNAL UPDATE ACCESS GRANTED — LOADING RELATED FILE...</div>
   </div>
+</main>
 
-  <script>
-    const sequence = [];
-    const correct = ['6', '7', '8', '9'];
+<script>
+(function(){
+  const replacements = [
+    { find: 'SENSA7ION', num: 7 },
+    { find: 'TRAJECTO9Y', num: 9 },
+    { find: 'GALVANIZ8D', num: 8 },
+    { find: 'REPEATIN6', num: 6 }
+  ];
 
-    document.querySelectorAll('.number').forEach(el => {
-      el.addEventListener('click', () => {
-        sequence.push(el.textContent);
-        if (sequence.join('') === correct.join('')) {
-          window.location.href = "nextsite.html";
+  const container = document.getElementById('doc');
+  let html = container.innerHTML;
+
+  replacements.forEach(item=>{
+    const digit = String(item.num);
+    const wrapped = item.find.replace(
+      digit,
+      `<span class="num" data-num="${digit}">${digit}</span>`
+    );
+    html = html.replace(item.find, wrapped);
+  });
+
+  container.innerHTML = html;
+
+  const correctOrder = ['6','7','8','9'];
+  let progress = 0;
+
+  function resetWrong(){
+    progress = 0;
+    document.querySelectorAll('.num').forEach(el=>el.classList.remove('clicked'));
+    const wrap = document.querySelector('.wrap');
+    wrap.classList.add('shake');
+    setTimeout(()=>wrap.classList.remove('shake'),480);
+  }
+
+  document.querySelectorAll('.num').forEach(el=>{
+    el.addEventListener('click',()=>{
+      const val = el.dataset.num;
+      if(el.classList.contains('clicked')) return;
+
+      if(val === correctOrder[progress]){
+        el.classList.add('clicked');
+        progress++;
+        if(progress === correctOrder.length){
+          document.getElementById('success').style.display = 'block';
+          setTimeout(()=>location.href='report2.html',900);
         }
-        if (sequence.length >= 4 && sequence.join('') !== correct.join('')) {
-          sequence.length = 0;
-        }
-      });
+      } else {
+        resetWrong();
+      }
     });
-  </script>
+  });
+})();
+</script>
 </body>
 </html>
