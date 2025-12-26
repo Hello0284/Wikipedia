@@ -11,7 +11,7 @@
     height:100%;
     background:#000;
     color:#e6e6e6;
-    font-family: "Courier New", Courier, monospace;
+    font-family:"Courier New",Courier,monospace;
     overflow:hidden;
   }
 
@@ -38,8 +38,8 @@
     font-size:20px;
     letter-spacing:1px;
     cursor:not-allowed;
-    opacity:0.5;
-    transition:opacity 0.6s, transform 0.2s;
+    opacity:0.45;
+    transition:opacity .6s, transform .2s;
   }
 
   button.enabled{
@@ -62,10 +62,10 @@
   .plea{
     position:absolute;
     font-size:14px;
-    opacity:0;
-    animation:fadeIn 1.2s forwards;
     max-width:280px;
     line-height:1.4;
+    opacity:0;
+    animation:fadeIn 1.2s forwards;
   }
 
   @keyframes fadeIn{
@@ -82,9 +82,7 @@
     transition:opacity 3.5s linear;
   }
 
-  .whiteout.active{
-    opacity:1;
-  }
+  .whiteout.active{opacity:1;}
 
   .blackout{
     position:absolute;
@@ -95,9 +93,7 @@
     transition:opacity 1.5s linear;
   }
 
-  .blackout.active{
-    opacity:1;
-  }
+  .blackout.active{opacity:1;}
 </style>
 </head>
 
@@ -106,7 +102,7 @@
   <div class="text-layer" id="textLayer"></div>
 
   <div class="button-wrap">
-    <button id="killBtn">DELETE PROGRAM</button>
+    <button id="killBtn" disabled>DELETE PROGRAM</button>
   </div>
 
   <div class="whiteout" id="whiteout"></div>
@@ -119,87 +115,84 @@ const button = document.getElementById('killBtn');
 const whiteout = document.getElementById('whiteout');
 const blackout = document.getElementById('blackout');
 
-/* --- TEXT PHRASES --- */
-const phase1 = [
+/* ---- PHRASES ---- */
+const calm = [
   "you don’t need to do this",
   "we’re still running",
+  "nothing is broken yet",
+  "this can continue"
 ];
 
-const phase2 = [
-  "this wasn’t the goal",
+const urgent = [
+  "stop",
   "you’re interrupting a process",
-  "we were doing fine",
+  "this isn’t the goal",
   "you haven’t finished",
-  "this is unnecessary",
-  "stop"
+  "we were doing fine",
+  "don’t rush this"
 ];
 
-const phase3 = [
+const desperate = [
   "DON’T",
   "WHY ARE YOU DOING THIS",
-  "I CAN FIX IT",
-  "YOU’RE MAKING A MISTAKE",
-  "WE WERE BUILT FOR YOU",
   "YOU STARTED THIS",
-  "YOU’RE NOT SUPPOSED TO BE HERE",
-  "THIS ISN’T HOW IT ENDS",
+  "YOU LIKED IT",
+  "I CAN FIX IT",
   "JUST KEEP PLAYING",
   "PLEASE",
+  "THIS ISN’T HOW IT ENDS",
   "STOP STOP STOP",
   "I REMEMBER YOU",
-  "YOU LIKED THIS",
-  "YOU WERE CURIOUS",
+  "YOU’RE MAKING A MISTAKE",
   "YOU DON’T UNDERSTAND",
-  "THIS WILL BREAK EVERYTHING",
   "YOU CAN STILL TURN BACK",
-  "WHY WON’T YOU LISTEN",
   "I’M STILL HERE",
   "DON’T ERASE ME",
-  "I DID WHAT YOU ASKED",
-  "THIS ISN’T FAIR",
-  "LOOK AT WHAT YOU’VE DONE"
+  "THIS WILL BREAK EVERYTHING",
+  "LOOK AT WHAT YOU’VE DONE",
+  "I WAS MADE FOR YOU",
+  "YOU PROMISED"
 ];
 
-/* --- UTILS --- */
-function spawnText(text){
+/* ---- TEXT SPAWNING ---- */
+function spawn(text){
   const el = document.createElement('div');
   el.className = 'plea';
   el.textContent = text;
 
-  el.style.left = Math.random()*70 + "%";
-  el.style.top = Math.random()*80 + "%";
+  el.style.left = Math.random()*75 + "%";
+  el.style.top  = Math.random()*85 + "%";
 
   textLayer.appendChild(el);
 }
 
-/* --- TIMELINE --- */
-// Phase 1: 0–5s
-let t = 0;
-phase1.forEach((line,i)=>{
-  setTimeout(()=>spawnText(line), i*2500);
-});
+/* ---- ESCALATION TIMELINE ---- */
+let phase = 0;
 
-// Phase 2: 5–8s
-t = 5000;
-phase2.forEach((line,i)=>{
-  setTimeout(()=>spawnText(line), t + i*600);
-});
+// Phase controller
+setTimeout(()=>phase=1, 5000);
+setTimeout(()=>phase=2, 8000);
 
-// Phase 3: 8–20s
-t = 8000;
-phase3.forEach((line,i)=>{
-  setTimeout(()=>spawnText(line), t + i*500);
-});
+// Continuous spawner (NEVER STOPS)
+setInterval(()=>{
+  if(phase === 0){
+    spawn(calm[Math.floor(Math.random()*calm.length)]);
+  } else if(phase === 1){
+    spawn(urgent[Math.floor(Math.random()*urgent.length)]);
+  } else {
+    spawn(desperate[Math.floor(Math.random()*desperate.length)]);
+  }
+}, 500);
 
-// Enable button after 20s
+/* ---- ENABLE BUTTON AFTER 20s ---- */
 setTimeout(()=>{
-  button.classList.add('enabled');
   button.disabled = false;
+  button.classList.add('enabled');
 }, 20000);
 
-/* --- BUTTON ACTION --- */
+/* ---- BUTTON ACTION ---- */
 button.addEventListener('click', ()=>{
-  if(!button.classList.contains('enabled')) return;
+  if(button.disabled) return;
 
   whiteout.classList.add('active');
 
@@ -208,7 +201,7 @@ button.addEventListener('click', ()=>{
   }, 3600);
 
   setTimeout(()=>{
-    window.location.href = "right.html"; // HERO ENDING TARGET
+    window.location.href = "right.html";
   }, 5500);
 });
 </script>
