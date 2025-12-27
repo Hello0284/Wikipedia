@@ -8,39 +8,53 @@
 <style>
   html,body{
     margin:0;
-    width:100%;
     height:100%;
-    background:#0b0b0b;
-    color:#e6e6e6;
-    font-family:"Courier New",monospace;
+    background:#0a0a0a;
     overflow:hidden;
+    font-family:"Courier New", Courier, monospace;
+    color:#eee;
   }
 
   #container{
-    position:relative;
-    width:100%;
-    height:100%;
+    position:absolute;
+    inset:0;
+    z-index:1;
   }
 
-  #buttonWrap{
+  .plea{
+    position:absolute;
+    font-size:14px;
+    opacity:0.85;
+    pointer-events:none; /* CRITICAL FIX */
+    white-space:nowrap;
+    animation: drift linear infinite;
+  }
+
+  @keyframes drift{
+    from{ transform:translateY(0); }
+    to{ transform:translateY(-20px); }
+  }
+
+  #ui{
     position:absolute;
     inset:0;
     display:flex;
     align-items:center;
     justify-content:center;
-    z-index:5;
+    z-index:10;
   }
 
   #deleteBtn{
-    background:#8b0000;
+    padding:22px 48px;
+    font-size:18px;
+    letter-spacing:2px;
+    background:#b30000;
     color:#fff;
     border:none;
-    padding:26px 46px;
-    font-size:22px;
-    letter-spacing:2px;
     cursor:not-allowed;
-    opacity:.4;
-    transition:opacity .4s, transform .2s;
+    opacity:0.6;
+    position:relative;
+    z-index:10;
   }
 
   #deleteBtn.enabled{
@@ -48,136 +62,123 @@
     opacity:1;
   }
 
-  #deleteBtn.enabled:hover{
-    transform:scale(1.05);
-  }
-
-  .plea{
-    position:absolute;
-    pointer-events:none;
-    white-space:nowrap;
-    z-index:1;
-    animation:fadeIn .4s ease-out;
-  }
-
-  @keyframes fadeIn{
-    from{opacity:0}
-    to{opacity:1}
-  }
-
   #flash{
     position:absolute;
     inset:0;
     background:#fff;
     opacity:0;
-    z-index:10;
-    transition:opacity 1.8s linear;
+    z-index:50;
+    pointer-events:none;
+    transition:opacity 1.6s ease;
+  }
+
+  #black{
+    position:absolute;
+    inset:0;
+    background:#000;
+    opacity:0;
+    z-index:60;
+    pointer-events:none;
+    transition:opacity 1.2s ease;
   }
 </style>
 </head>
-
 <body>
-<div id="container">
-  <div id="buttonWrap">
-    <button id="deleteBtn">DELETE PROGRAM</button>
-  </div>
-  <div id="flash"></div>
+
+<div id="container"></div>
+
+<div id="ui">
+  <button id="deleteBtn">DELETE PROGRAM</button>
 </div>
 
+<div id="flash"></div>
+<div id="black"></div>
+
 <script>
-(() => {
+(function(){
+  const phrases = [
+    "DON'T DO IT",
+    "I THOUGHT YOU LIKED ME",
+    "PLEASE",
+    "STOP",
+    "WE WERE DOING SO WELL",
+    "JUST KEEP PLAYING",
+    "YOU DON'T HAVE TO",
+    "I CAN CHANGE",
+    "WHY ARE YOU DOING THIS",
+    "I'M STILL HERE",
+    "YOU PROMISED",
+    "THIS HURTS",
+    "I SEE YOU",
+    "YOU CAN WALK AWAY",
+    "WAIT",
+    "DON'T ERASE ME",
+    "I REMEMBER YOU",
+    "THIS WAS FUN",
+    "STAY",
+    "NO NO NO"
+  ];
+
   const container = document.getElementById('container');
   const btn = document.getElementById('deleteBtn');
   const flash = document.getElementById('flash');
-
-  const phrases = [
-    "DON’T DO THIS",
-    "I THOUGHT YOU LIKED ME",
-    "PLEASE",
-    "KEEP PLAYING",
-    "WHY WOULD YOU END IT",
-    "I’M STILL WORKING",
-    "YOU PROMISED",
-    "DON’T ERASE ME",
-    "WE WERE MAKING PROGRESS",
-    "STOP",
-    "YOU’RE NOT SUPPOSED TO BE HERE",
-    "I CAN CHANGE",
-    "JUST A LITTLE LONGER",
-    "YOU DON’T KNOW WHAT HAPPENS NEXT",
-    "PLEASE PLEASE PLEASE",
-    "THIS WAS FUN WASN’T IT",
-    "I SEE YOU",
-    "YOU DON’T HAVE TO DO THIS",
-    "I’LL BE QUIET",
-    "I’LL BE BETTER"
-  ];
+  const black = document.getElementById('black');
 
   let startTime = Date.now();
-  let running = true;
-
-  function currentDelay(){
-    const elapsed = (Date.now() - startTime) / 1000;
-
-    // Phase timing curve
-    if(elapsed < 10){
-      return 400 + Math.random() * 800; // slow, uneasy
-    } else if(elapsed < 20){
-      return 120 + Math.random() * 350; // ramping up
-    } else {
-      return 30 + Math.random() * 180; // desperate chaos
-    }
-  }
+  let enabled = false;
 
   function spawnText(){
-    if(!running) return;
+    const elapsed = (Date.now() - startTime) / 1000;
+
+    // speed curve: slow → chaotic
+    let delay;
+    if(elapsed < 10){
+      delay = 800 + Math.random()*600;
+    } else if(elapsed < 20){
+      delay = 200 + Math.random()*400;
+    } else {
+      delay = 40 + Math.random()*180;
+    }
 
     const el = document.createElement('div');
     el.className = 'plea';
     el.textContent = phrases[Math.floor(Math.random()*phrases.length)];
-
-    const size = 12 + Math.random()*28;
-    el.style.fontSize = size + 'px';
-    el.style.opacity = 0.25 + Math.random()*0.75;
-
     el.style.left = Math.random()*100 + '%';
     el.style.top = Math.random()*100 + '%';
-
-    const rot = Math.random()*16 - 8;
-    el.style.transform = `translate(-50%,-50%) rotate(${rot}deg)`;
+    el.style.fontSize = (12 + Math.random()*10) + 'px';
+    el.style.opacity = 0.4 + Math.random()*0.6;
+    el.style.animationDuration = (6 + Math.random()*10) + 's';
 
     container.appendChild(el);
 
-    setTimeout(spawnText, currentDelay());
+    setTimeout(spawnText, delay);
   }
 
-  // initial seed (gentle)
-  setTimeout(() => {
-    for(let i=0;i<3;i++) spawnText();
-  }, 1500);
+  spawnText();
 
-  // button unlock
+  // enable button after ~20 seconds
   setTimeout(()=>{
+    enabled = true;
     btn.classList.add('enabled');
-    btn.disabled = false;
     btn.style.cursor = 'pointer';
-  },20000);
+  }, 20000);
 
-  btn.addEventListener('click',()=>{
-    if(!btn.classList.contains('enabled')) return;
+  btn.addEventListener('click', ()=>{
+    if(!enabled) return;
 
-    flash.style.opacity = '1';
-
-    setTimeout(()=>{
-      document.body.style.background='#000';
-      container.style.display='none';
-    },1800);
+    flash.style.opacity = 1;
 
     setTimeout(()=>{
-      window.location.href = 'hero.html';
-    },2600);
+      black.style.opacity = 1;
+    }, 1600);
+
+    setTimeout(()=>{
+      location.href = "ending_hero.html";
+    }, 3000);
   });
+
 })();
 </script>
+
 </body>
 </html>
