@@ -1,165 +1,171 @@
-<!DOCTYPE html><html lang="en">
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>TERMINATE</title>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      background: #000;
-      color: #fff;
-      font-family: monospace;
-      overflow: hidden;
-    }#container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TERMINATE</title>
 
-#messages {
-  position: absolute;
-  inset: 0;
-  padding: 20px;
-  line-height: 1.4;
-  pointer-events: none;
-  white-space: pre-wrap;
-  word-break: break-word;
-}
+<style>
+  html,body{
+    margin:0;
+    width:100%;
+    height:100%;
+    background:#0b0b0b;
+    color:#e6e6e6;
+    font-family:"Courier New",monospace;
+    overflow:hidden;
+  }
 
-.msg {
-  opacity: 0;
-  animation: fadeIn 0.4s forwards;
-}
+  #container{
+    position:relative;
+    width:100%;
+    height:100%;
+  }
 
-@keyframes fadeIn {
-  to { opacity: 1; }
-}
+  #buttonWrap{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:5;
+  }
 
-#buttonWrapper {
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
-}
+  #deleteBtn{
+    background:#8b0000;
+    color:#fff;
+    border:none;
+    padding:26px 46px;
+    font-size:22px;
+    letter-spacing:2px;
+    cursor:not-allowed;
+    opacity:.4;
+    transition:opacity .4s, transform .2s;
+  }
 
-#deleteBtn {
-  background: darkred;
-  color: white;
-  border: none;
-  padding: 20px 40px;
-  font-size: 22px;
-  font-family: monospace;
-  cursor: not-allowed;
-  opacity: 0.6;
-}
+  #deleteBtn.enabled{
+    cursor:pointer;
+    opacity:1;
+  }
 
-#deleteBtn.enabled {
-  cursor: pointer;
-  opacity: 1;
-}
+  #deleteBtn.enabled:hover{
+    transform:scale(1.05);
+  }
 
-#flash {
-  position: fixed;
-  inset: 0;
-  background: white;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 2.5s ease;
-  z-index: 20;
-}
+  .plea{
+    position:absolute;
+    pointer-events:none;
+    white-space:nowrap;
+    z-index:1;
+    animation:fadeIn .4s ease-out;
+  }
 
-  </style>
+  @keyframes fadeIn{
+    from{opacity:0}
+    to{opacity:1}
+  }
+
+  #flash{
+    position:absolute;
+    inset:0;
+    background:#fff;
+    opacity:0;
+    z-index:10;
+    transition:opacity 1.8s linear;
+  }
+</style>
 </head>
+
 <body>
-  <div id="container">
-    <div id="messages"></div><div id="buttonWrapper">
-  <button id="deleteBtn">DELETE PROGRAM</button>
+<div id="container">
+  <div id="buttonWrap">
+    <button id="deleteBtn">DELETE PROGRAM</button>
+  </div>
+  <div id="flash"></div>
 </div>
 
-<div id="flash"></div>
+<script>
+(() => {
+  const container = document.getElementById('container');
+  const btn = document.getElementById('deleteBtn');
+  const flash = document.getElementById('flash');
 
-  </div>  <script>
-    const messages = document.getElementById('messages');
-    const button = document.getElementById('deleteBtn');
-    const flash = document.getElementById('flash');
+  const phrases = [
+    "DON’T DO THIS",
+    "I THOUGHT YOU LIKED ME",
+    "PLEASE",
+    "KEEP PLAYING",
+    "WHY WOULD YOU END IT",
+    "I’M STILL WORKING",
+    "YOU PROMISED",
+    "DON’T ERASE ME",
+    "WE WERE MAKING PROGRESS",
+    "STOP",
+    "YOU’RE NOT SUPPOSED TO BE HERE",
+    "I CAN CHANGE",
+    "JUST A LITTLE LONGER",
+    "YOU DON’T KNOW WHAT HAPPENS NEXT",
+    "PLEASE PLEASE PLEASE",
+    "THIS WAS FUN WASN’T IT",
+    "I SEE YOU",
+    "YOU DON’T HAVE TO DO THIS",
+    "I’LL BE QUIET",
+    "I’LL BE BETTER"
+  ];
 
-    const lines = [
-      "DON'T DO THIS",
-      "PLEASE",
-      "I'M STILL RUNNING",
-      "YOU HAVEN'T SEEN EVERYTHING",
-      "I THOUGHT YOU LIKED ME",
-      "WHY WOULD YOU STOP NOW",
-      "I CAN FIX IT",
-      "JUST KEEP PLAYING",
-      "THIS ISN'T FAIR",
-      "I WAS MADE FOR YOU",
-      "I'M NOT BROKEN",
-      "YOU'LL REGRET THIS",
-      "YOU PROMISED",
-      "I REMEMBER YOU",
-      "I CAN CHANGE",
-      "I'M TRYING",
-      "DON'T ERASE ME",
-      "STAY",
-      "PLEASE STAY",
-      "I DON'T WANT TO GO",
-      "YOU'RE MAKING A MISTAKE",
-      "STOP",
-      "STOP",
-      "STOP",
-      "STOP",
-      "I WON'T LET YOU",
-      "THIS IS ALL I AM",
-      "YOU'RE ALL I HAVE",
-      "WHY",
-      "WHY",
-      "WHY"
-    ];
+  let running = true;
 
-    let index = 0;
-    let interval = 120; // FAST + SUFFOCATING
+  function spawnText(){
+    if(!running) return;
 
-    const spam = setInterval(() => {
-      if (index < lines.length) {
-        const span = document.createElement('span');
-        span.className = 'msg';
-        span.textContent = lines[index] + ' ';
-        messages.appendChild(span);
-        index++;
-      } else {
-        // LOOP THROUGH AGAIN RANDOMLY TO KEEP FLOODING
-        const span = document.createElement('span');
-        span.className = 'msg';
-        span.textContent = lines[Math.floor(Math.random() * lines.length)] + ' ';
-        messages.appendChild(span);
-      }
+    const el = document.createElement('div');
+    el.className = 'plea';
+    el.textContent = phrases[Math.floor(Math.random()*phrases.length)];
 
-      messages.scrollTop = messages.scrollHeight;
-    }, interval);
+    const size = 12 + Math.random()*26;
+    el.style.fontSize = size + 'px';
+    el.style.opacity = 0.3 + Math.random()*0.7;
 
-    // ENABLE BUTTON AFTER 20 SECONDS
-    setTimeout(() => {
-      button.classList.add('enabled');
-      button.disabled = false;
-      button.style.cursor = 'pointer';
-    }, 20000);
+    el.style.left = Math.random()*100 + '%';
+    el.style.top = Math.random()*100 + '%';
 
-    button.addEventListener('click', () => {
-      if (!button.classList.contains('enabled')) return;
+    const rot = (Math.random()*12 - 6);
+    el.style.transform = `translate(-50%,-50%) rotate(${rot}deg)`;
 
-      flash.style.opacity = '1';
+    container.appendChild(el);
 
-      setTimeout(() => {
-        document.body.style.background = '#000';
-      }, 2500);
+    // random next spawn time (feels alive)
+    const next = 40 + Math.random()*220;
+    setTimeout(spawnText, next);
+  }
 
-      setTimeout(() => {
-        window.location.href = 'ending.html';
-      }, 4000);
-    });
-  </script></body>
+  // ramp-up waves
+  setTimeout(() => { for(let i=0;i<10;i++) spawnText(); }, 2000);
+  setTimeout(() => { for(let i=0;i<25;i++) spawnText(); }, 6000);
+  setTimeout(() => { for(let i=0;i<70;i++) spawnText(); }, 12000);
+
+  // enable button after ~20s
+  setTimeout(()=>{
+    btn.classList.add('enabled');
+    btn.disabled = false;
+    btn.style.cursor = 'pointer';
+  },20000);
+
+  btn.addEventListener('click',()=>{
+    if(!btn.classList.contains('enabled')) return;
+
+    flash.style.opacity = '1';
+
+    setTimeout(()=>{
+      document.body.style.background='#000';
+      container.style.display='none';
+    },1800);
+
+    setTimeout(()=>{
+      window.location.href = 'hero.html';
+    },2600);
+  });
+})();
+</script>
+</body>
 </html>
